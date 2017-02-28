@@ -1,5 +1,6 @@
-package jp.co.tukiyo.yoruha
+package jp.co.tukiyo.yoruha.ui.activity
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 
@@ -7,5 +8,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        startActivity(Intent(this, ScreenActivity::class.java))
     }
 }
