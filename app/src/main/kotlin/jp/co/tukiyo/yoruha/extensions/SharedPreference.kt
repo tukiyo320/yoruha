@@ -14,6 +14,6 @@ fun SharedPreferences.isAcceptedToPolicy() : Boolean {
     return getBoolean("acceptedToPolicy", false)
 }
 
-fun SharedPreferences.Editor.putAcceptecToPolicy(accepted: Boolean) : SharedPreferences.Editor {
-    return putBoolean("acceptecToPolicy", accepted)
+fun SharedPreferences.Editor.putAcceptedToPolicy(accepted: Boolean) : SharedPreferences.Editor {
+    return putBoolean("acceptedToPolicy", accepted)
 }
