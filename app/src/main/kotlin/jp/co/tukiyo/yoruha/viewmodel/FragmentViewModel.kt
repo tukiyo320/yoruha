@@ -9,7 +9,7 @@ import com.trello.rxlifecycle2.android.RxLifecycleAndroid
 import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
 
-class FragmentViewModel(override val context: Context) : BaseViewModel(), LifecycleProvider<FragmentEvent> {
+open class FragmentViewModel(override val context: Context) : BaseViewModel(), LifecycleProvider<FragmentEvent> {
 
     val lifeCycleEvent: BehaviorSubject<FragmentEvent> = BehaviorSubject.create()
 

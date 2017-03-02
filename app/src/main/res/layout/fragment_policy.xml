@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:background="#81D4FA"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+        <Button
+            android:id="@+id/policy_accept_button"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/policy_accept_word"/>
+        <WebView
+            android:id="@+id/policy_web_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/policy_accept_button"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"/>
+
+    </RelativeLayout>
+</layout>

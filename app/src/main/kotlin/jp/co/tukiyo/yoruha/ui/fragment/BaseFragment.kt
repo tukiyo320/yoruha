@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.trello.rxlifecycle2.android.FragmentEvent
-import com.trello.rxlifecycle2.components.RxFragment
+import com.trello.rxlifecycle2.components.support.RxFragment
 import io.reactivex.disposables.CompositeDisposable
 import jp.co.tukiyo.yoruha.application.Application
 import jp.co.tukiyo.yoruha.ui.activity.ScreenActivity

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Yoruha</string>
+    <string name="policy_accept_word">同意する</string>
 </resources>

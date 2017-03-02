@@ -17,5 +17,5 @@
         </activity>
         <activity android:name=".ui.activity.ScreenActivity"/>
     </application>
-
+    <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>

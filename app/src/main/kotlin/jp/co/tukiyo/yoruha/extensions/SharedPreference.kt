@@ -9,3 +9,11 @@ fun SharedPreferences.getUuid() : String {
 fun SharedPreferences.Editor.putUuid(uuid: String) : SharedPreferences.Editor {
     return putString("uuid", uuid)
 }
+
+fun SharedPreferences.isAcceptedToPolicy() : Boolean {
+    return getBoolean("acceptedToPolicy", false)
+}
+
+fun SharedPreferences.Editor.putAcceptecToPolicy(accepted: Boolean) : SharedPreferences.Editor {
+    return putBoolean("acceptecToPolicy", accepted)
+}
