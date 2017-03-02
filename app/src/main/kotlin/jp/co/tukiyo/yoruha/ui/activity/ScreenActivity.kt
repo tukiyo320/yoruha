@@ -8,6 +8,7 @@ import jp.co.tukiyo.yoruha.extensions.getSharedPreference
 import jp.co.tukiyo.yoruha.extensions.getUuid
 import jp.co.tukiyo.yoruha.extensions.isAcceptedToPolicy
 import jp.co.tukiyo.yoruha.extensions.putUuid
+import jp.co.tukiyo.yoruha.ui.screen.HomeScreen
 import jp.co.tukiyo.yoruha.ui.screen.PolicyScreen
 import jp.co.tukiyo.yoruha.ui.screen.Screen
 import java.util.*
@@ -42,7 +43,9 @@ class ScreenActivity : BaseActivity<ActivityScreenBinding>() {
 
         checkUuid()
 
-        if (!prefs.isAcceptedToPolicy()) {
+        if (prefs.isAcceptedToPolicy()) {
+            replaceScreen(HomeScreen())
+        } else {
             replaceScreen(PolicyScreen())
         }
     }
