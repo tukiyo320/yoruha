@@ -5,5 +5,5 @@ import java.io.Serializable
 data class BooksResponse(
         val kind: String,
         val totalItems: Long,
-        val items: List<MetaInfo>
+        val items: List<SearchResultInfo>
 ) : Serializable

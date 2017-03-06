@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.hannesdorfmann.fragmentargs.FragmentArgs
 import com.trello.rxlifecycle2.android.FragmentEvent
 import com.trello.rxlifecycle2.components.support.RxFragment
 import io.reactivex.disposables.CompositeDisposable
@@ -33,6 +34,7 @@ abstract class BaseFragment<BINDING : ViewDataBinding> : RxFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        FragmentArgs.inject(this)
         (bindingViewModel as? FragmentViewModel)?.lifeCycleEvent?.onNext(FragmentEvent.CREATE)
     }
 

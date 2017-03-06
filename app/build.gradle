@@ -18,6 +18,9 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug {
+            minifyEnabled false
+        }
     }
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -40,7 +43,7 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     compile "com.hannesdorfmann.fragmentargs:annotation:3.0.2"
-    kapt "com.android.databinding:compiler:2.2.0"
+    kapt "com.android.databinding:compiler:2.3.0"
     kapt "com.hannesdorfmann.fragmentargs:processor:3.0.2"
     compile "io.reactivex.rxjava2:rxjava:2.0.1"
     compile "io.reactivex.rxjava2:rxandroid:2.0.1"
@@ -49,13 +52,18 @@ dependencies {
     compile "com.trello.rxlifecycle2:rxlifecycle-kotlin:2.0.1"
     compile 'com.trello.rxlifecycle2:rxlifecycle-components:2.0.1'
     compile 'com.trello.rxlifecycle2:rxlifecycle-navi:2.0.1'
-    compile "com.stepango.rxdatabindings:rxdatabindings:0.5.0"
+    compile "com.stepango.rxdatabindings:rxdatabindings:0.6.0"
     compile 'com.squareup.okhttp3:okhttp:3.6.0'
     compile 'com.squareup.retrofit2:retrofit:2.2.0'
     compile 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
     compile 'com.squareup.retrofit2:converter-moshi:2.2.0'
     compile 'com.squareup.moshi:moshi:1.4.0'
+    compile "com.android.support:recyclerview-v7:25.2.0"
+    compile "com.github.chuross:recyclerviewadapters:1.0.2"
 }
 repositories {
     mavenCentral()
+    maven {
+        url 'http://chuross.github.com/maven-repository/'
+    }
 }

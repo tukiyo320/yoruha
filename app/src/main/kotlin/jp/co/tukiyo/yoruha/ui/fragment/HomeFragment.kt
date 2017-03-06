@@ -5,12 +5,14 @@ import android.support.v7.widget.SearchView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs
 import jp.co.tukiyo.yoruha.R
 import jp.co.tukiyo.yoruha.databinding.FragmentHomeBinding
+import jp.co.tukiyo.yoruha.ui.screen.SearchResultListScreen
 
 @FragmentWithArgs
-class HomeFragment : BaseFragment<FragmentHomeBinding>() {
+class HomeFragment : BaseFragment<FragmentHomeBinding>(), SearchView.OnQueryTextListener {
     override val layoutResourceId: Int = R.layout.fragment_home
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -26,15 +28,18 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         binding?.run {
             val searchView = toolbar.menu.findItem(R.id.menu_search).actionView as SearchView
             searchView.setBackgroundColor(android.R.color.white)
-            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String?): Boolean {
-                    return false
-                }
-
-                override fun onQueryTextChange(newText: String?): Boolean {
-                    return false
-                }
-            })
+            searchView.setOnQueryTextListener(this@HomeFragment)
         }
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        query?.run {
+            screenActivity.pushScreen(SearchResultListScreen(this))
+        }
+        return false
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        return false
     }
 }
