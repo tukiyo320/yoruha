@@ -36,4 +36,8 @@ class SearchResultListFragmentViewModel(context: Context) : FragmentViewModel(co
                 }
                 .subscribe()
     }
+
+    fun refresh() {
+        search(queryString.get())
+    }
 }

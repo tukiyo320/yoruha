@@ -36,6 +36,14 @@ class SearchResultListFragment : BaseFragment<FragmentSearchResultListBinding>()
                 adapter = searchViewModel.listAdapter
                 addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
             }
+            searchResultRefresh.run {
+                setOnRefreshListener {
+                    searchViewModel.refresh()
+                    if (isRefreshing) {
+                        isRefreshing = false
+                    }
+                }
+            }
 
             viewModel = searchViewModel
         }

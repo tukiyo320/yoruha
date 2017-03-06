@@ -9,8 +9,9 @@
             type="jp.co.tukiyo.yoruha.viewmodel.SearchResultListFragmentViewModel"/>
     </data>
 
-    <RelativeLayout android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -23,18 +24,23 @@
             android:id="@+id/search_result_query"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/toolbar"
-            android:layout_centerHorizontal="true"
+            android:layout_below="@id/toolbar"
             android:background="#F8BBD0"
-            android:textStyle="bold"
-            android:text="@{viewModel.queryString}"/>
+            android:text="@{viewModel.queryString}"
+            android:textStyle="bold"/>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/search_result_list"
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/search_result_refresh"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/search_result_query"/>
+            android:layout_height="match_parent"
+            android:layout_below="@id/search_result_query">
 
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/search_result_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </android.support.v4.widget.SwipeRefreshLayout>
     </RelativeLayout>
 
 </layout>
