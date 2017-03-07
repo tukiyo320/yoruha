@@ -1,6 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 25
@@ -60,6 +62,7 @@ dependencies {
     compile 'com.squareup.moshi:moshi:1.4.0'
     compile "com.android.support:recyclerview-v7:25.2.0"
     compile "com.github.chuross:recyclerviewadapters:1.0.2"
+    compile 'com.google.android.gms:play-services-auth:8.3.0'
 }
 repositories {
     mavenCentral()
