@@ -5,6 +5,10 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Toast
+import com.facebook.android.crypto.keychain.AndroidConceal
+import com.facebook.android.crypto.keychain.SharedPrefsBackedKeyChain
+import com.facebook.crypto.CryptoConfig
+import com.facebook.crypto.Entity
 import com.google.android.gms.auth.GoogleAuthUtil
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -16,10 +20,8 @@ import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 import jp.co.tukiyo.yoruha.R
 import jp.co.tukiyo.yoruha.databinding.ActivityLoginBinding
-import jp.co.tukiyo.yoruha.extensions.async
-import jp.co.tukiyo.yoruha.extensions.getSharedPreference
-import jp.co.tukiyo.yoruha.extensions.onNext
-import jp.co.tukiyo.yoruha.extensions.putGoogleOAuthToken
+import jp.co.tukiyo.yoruha.extensions.*
+import java.io.BufferedOutputStream
 import java.lang.Exception
 
 class LoginActivity : BaseActivity<ActivityLoginBinding>(), GoogleApiClient.OnConnectionFailedListener {
@@ -89,6 +91,10 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), GoogleApiClient.OnCo
                     Toast.makeText(this, "failed get google account OAuth token", Toast.LENGTH_SHORT).show()
                 }
                 .subscribe()
+    }
+
+    fun storeToken(token: String) {
+        prefs.edit().putGoogleOAuthToken(crypto.encrypt(token)).apply()
     }
 
     override fun onConnectionFailed(p0: ConnectionResult?) {
