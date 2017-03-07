@@ -1,8 +1,11 @@
 package jp.co.tukiyo.yoruha.ui.fragment
 
 import android.os.Bundle
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.SearchView
+import android.support.v7.widget.Toolbar
 import android.view.*
 import com.hannesdorfmann.fragmentargs.annotation.Arg
 import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs
@@ -13,12 +16,14 @@ import jp.co.tukiyo.yoruha.ui.adapter.BookSearchResultListAdapter
 import jp.co.tukiyo.yoruha.viewmodel.SearchResultListFragmentViewModel
 
 @FragmentWithArgs
-class SearchResultListFragment : BaseFragment<FragmentSearchResultListBinding>() {
-
+class SearchResultListFragment : BaseFragment<FragmentSearchResultListBinding>(),
+        SearchView.OnQueryTextListener,
+        Toolbar.OnMenuItemClickListener {
     @Arg(key = "queryString")
     var query: String = ""
 
     override val layoutResourceId: Int = R.layout.fragment_search_result_list
+
     val searchViewModel: SearchResultListFragmentViewModel by lazy {
         SearchResultListFragmentViewModel(context)
     }
@@ -35,7 +40,6 @@ class SearchResultListFragment : BaseFragment<FragmentSearchResultListBinding>()
             toolbar.inflateMenu(R.menu.menu_search)
         }?.root
     }
-
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -54,26 +58,43 @@ class SearchResultListFragment : BaseFragment<FragmentSearchResultListBinding>()
                 }
             }
 
-            toolbar.setOnMenuItemClickListener { item ->
-                if (item != null && item.groupId == R.id.menu_search_sort) {
-                    item.isChecked = true
-                    when (item.itemId) {
-                        R.id.menu_search_sort_relevance -> {
-                            searchViewModel.orderBy = GoogleBooksAPIClient.OrderBy.RELEVANCE
-                        }
-                        R.id.menu_search_sort_newest -> {
-                            searchViewModel.orderBy = GoogleBooksAPIClient.OrderBy.NEWEST
-                        }
-                    }
-                }
-                return@setOnMenuItemClickListener true
+            toolbar.run {
+                setOnMenuItemClickListener(this@SearchResultListFragment)
+                val searchView = menu.findItem(R.id.menu_search).actionView as SearchView
+                searchView.setOnQueryTextListener(this@SearchResultListFragment)
+                menu.findItem(R.id.menu_search_sort_relevance).isChecked = true
             }
-            toolbar.menu.findItem(R.id.menu_search_sort_relevance).isChecked = true
+
             searchViewModel.orderBy = GoogleBooksAPIClient.OrderBy.RELEVANCE
 
             viewModel = searchViewModel
         }
 
         searchViewModel.search(query)
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        this.query = query ?: ""
+        searchViewModel.search(this.query)
+        return false
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        return false
+    }
+
+    override fun onMenuItemClick(item: MenuItem?): Boolean {
+        if (item != null && item.groupId == R.id.menu_search_sort) {
+            item.isChecked = true
+            when (item.itemId) {
+                R.id.menu_search_sort_relevance -> {
+                    searchViewModel.orderBy = GoogleBooksAPIClient.OrderBy.RELEVANCE
+                }
+                R.id.menu_search_sort_newest -> {
+                    searchViewModel.orderBy = GoogleBooksAPIClient.OrderBy.NEWEST
+                }
+            }
+        }
+        return true
     }
 }
