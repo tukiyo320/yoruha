@@ -17,3 +17,11 @@ fun SharedPreferences.isAcceptedToPolicy() : Boolean {
 fun SharedPreferences.Editor.putAcceptedToPolicy(accepted: Boolean) : SharedPreferences.Editor {
     return putBoolean("acceptedToPolicy", accepted)
 }
+
+fun SharedPreferences.getGoogleOAuthToken() : String {
+    return getString("googleOAuthToken", "")
+}
+
+fun SharedPreferences.Editor.putGoogleOAuthToken(token: String) : SharedPreferences.Editor {
+    return putString("googleOAuthToken", token)
+}
