@@ -20,20 +20,11 @@
             android:layout_height="wrap_content"
             app:navigationIcon="@mipmap/ic_launcher"/>
 
-        <TextView
-            android:id="@+id/search_result_query"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/toolbar"
-            android:background="#F8BBD0"
-            android:text="@{viewModel.queryString}"
-            android:textStyle="bold"/>
-
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/search_result_refresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/search_result_query">
+            android:layout_below="@id/toolbar">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/search_result_list"

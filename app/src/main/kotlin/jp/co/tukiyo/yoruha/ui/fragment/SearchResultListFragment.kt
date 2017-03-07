@@ -40,6 +40,7 @@ class SearchResultListFragment : BaseFragment<FragmentSearchResultListBinding>()
             toolbar.inflateMenu(R.menu.menu_search)
         }?.root
     }
+
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -51,7 +52,7 @@ class SearchResultListFragment : BaseFragment<FragmentSearchResultListBinding>()
             }
             searchResultRefresh.run {
                 setOnRefreshListener {
-                    searchViewModel.refresh()
+                    searchViewModel.refresh(query)
                     if (isRefreshing) {
                         isRefreshing = false
                     }
@@ -60,8 +61,13 @@ class SearchResultListFragment : BaseFragment<FragmentSearchResultListBinding>()
 
             toolbar.run {
                 setOnMenuItemClickListener(this@SearchResultListFragment)
-                val searchView = menu.findItem(R.id.menu_search).actionView as SearchView
-                searchView.setOnQueryTextListener(this@SearchResultListFragment)
+                (menu.findItem(R.id.menu_search).actionView as SearchView).apply {
+                    isIconified = false
+                    setIconifiedByDefault(false)
+                    requestFocusFromTouch()
+                    setQuery(this@SearchResultListFragment.query, false)
+                    setOnQueryTextListener(this@SearchResultListFragment)
+                }
                 menu.findItem(R.id.menu_search_sort_relevance).isChecked = true
             }
 

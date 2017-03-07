@@ -16,16 +16,13 @@ import jp.co.tukiyo.yoruha.ui.adapter.BookSearchResultListAdapter
 
 class SearchResultListFragmentViewModel(context: Context) : FragmentViewModel(context) {
     val listAdapter: BookSearchResultListAdapter = BookSearchResultListAdapter(context)
-    val queryString: ObservableField<String> = ObservableField("")
     var orderBy: GoogleBooksAPIClient.OrderBy = GoogleBooksAPIClient.OrderBy.RELEVANCE
 
     fun search(query: String) {
-        queryString.set(query)
         search(query, 0)
     }
 
     fun search(query: String, startIndex: Int) {
-        queryString.set(query)
         GoogleBooksAPIClientBuilder().build()
                 .search(query, orderBy.name, startIndex)
                 .async(Schedulers.newThread())
@@ -44,7 +41,7 @@ class SearchResultListFragmentViewModel(context: Context) : FragmentViewModel(co
                 .subscribe()
     }
 
-    fun refresh() {
-        search(queryString.get())
+    fun refresh(query: String) {
+        search(query)
     }
 }
