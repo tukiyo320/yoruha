@@ -5,10 +5,6 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Toast
-import com.facebook.android.crypto.keychain.AndroidConceal
-import com.facebook.android.crypto.keychain.SharedPrefsBackedKeyChain
-import com.facebook.crypto.CryptoConfig
-import com.facebook.crypto.Entity
 import com.google.android.gms.auth.GoogleAuthUtil
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -21,7 +17,6 @@ import io.reactivex.schedulers.Schedulers
 import jp.co.tukiyo.yoruha.R
 import jp.co.tukiyo.yoruha.databinding.ActivityLoginBinding
 import jp.co.tukiyo.yoruha.extensions.*
-import java.io.BufferedOutputStream
 import java.lang.Exception
 
 class LoginActivity : BaseActivity<ActivityLoginBinding>(), GoogleApiClient.OnConnectionFailedListener {
@@ -32,6 +27,18 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), GoogleApiClient.OnCo
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val email = prefs.getUserEmail()
+        if(email.isNotEmpty()) {
+            getToken(email)
+                    .async(Schedulers.newThread())
+                    .onNext {
+                        storeAuthData(email, it)
+                        startActivity(Intent(this, ScreenActivity::class.java))
+                        finish()
+                    }
+                    .onError {  }
+                    .subscribe()
+        }
 
         binding.signInButton.apply {
             setSize(SignInButton.SIZE_STANDARD)
@@ -70,20 +77,11 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), GoogleApiClient.OnCo
         if (!result.isSuccess) return
 
         val account = result.signInAccount
-        Observable.create<String> { subscriber ->
-            try {
-                GoogleAuthUtil.getToken(this, Account(account.email, "com.google"), "oauth2:profile email").let {
-                    subscriber.onNext(it)
-                }
-            } catch (e: Exception) {
-                subscriber.onError(e)
-            }
-        }
+        
+        getToken(account.email)
                 .async(Schedulers.newThread())
                 .onNext {
-                    prefs.edit()
-                            .putGoogleOAuthToken(it)
-                            .apply()
+                    storeAuthData(account.email, it)
                     startActivity(Intent(this, ScreenActivity::class.java))
                     finish()
                 }
@@ -92,9 +90,28 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), GoogleApiClient.OnCo
                 }
                 .subscribe()
     }
+    
+    fun getToken(email: String): Observable<String> {
+        return Observable.create<String> { subscriber ->
+            try {
+                GoogleAuthUtil.getToken(this, Account(email, "com.google"), "oauth2:profile email").let {
+                    subscriber.onNext(it)
+                }
+            } catch (e: Exception) {
+                prefs.edit()
+                        .removeUserEmail()
+                        .removeGoogleOAuthToken()
+                        .apply()
+                subscriber.onError(e)
+            }
+        }
+    }
 
-    fun storeToken(token: String) {
-        prefs.edit().putGoogleOAuthToken(crypto.encrypt(token)).apply()
+    fun storeAuthData(email: String, token: String) {
+        prefs.edit()
+                .putGoogleOAuthToken(crypto.encrypt(token))
+                .putUserEmail(email)
+                .apply()
     }
 
     override fun onConnectionFailed(p0: ConnectionResult?) {
