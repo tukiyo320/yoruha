@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Toast
 import com.google.android.gms.auth.GoogleAuthUtil
+import com.google.android.gms.auth.UserRecoverableAuthException
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.auth.api.signin.GoogleSignInResult
@@ -94,9 +95,11 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), GoogleApiClient.OnCo
     fun getToken(email: String): Observable<String> {
         return Observable.create<String> { subscriber ->
             try {
-                GoogleAuthUtil.getToken(this, Account(email, "com.google"), "oauth2:profile email").let {
+                GoogleAuthUtil.getToken(this, Account(email, "com.google"), "oauth2:https://www.googleapis.com/auth/books").let {
                     subscriber.onNext(it)
                 }
+            } catch (e: UserRecoverableAuthException) {
+                startActivityForResult(e.intent, RC_SIGN_IN)
             } catch (e: Exception) {
                 prefs.edit()
                         .removeUserEmail()
