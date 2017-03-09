@@ -2,12 +2,12 @@ package jp.co.tukiyo.yoruha.ui.adapter
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
+import android.support.v4.app.FragmentStatePagerAdapter
 import com.astuetz.PagerSlidingTabStrip
 import jp.co.tukiyo.yoruha.ui.fragment.BookShelfFragmentBuilder
 import java.io.Serializable
 
-class BookShelfPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+class BookShelfPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
 
     val tabs: MutableList<BookShelf> = mutableListOf(BookShelf(3, "読んでる本", false), BookShelf(2, "読みたい本", false), BookShelf(4, "読んだ本", false))
     lateinit var view: PagerSlidingTabStrip

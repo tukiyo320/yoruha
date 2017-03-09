@@ -38,7 +38,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), SearchView.OnQueryText
             searchView.setBackgroundColor(android.R.color.white)
             searchView.setOnQueryTextListener(this@HomeFragment)
             bookShelf.adapter = adapter
-            bookShelfPager.setViewPager(bookShelf)
+            bookShelfPager.setViewPager(bookShelf.apply { offscreenPageLimit = 3 })
         }
     }
 
