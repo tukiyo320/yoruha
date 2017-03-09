@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -10,13 +10,29 @@
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp">
+        <ImageView
+            android:id="@+id/book_item_thumbnail"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:imageUrl="@{book.volumeInfo.imageLinks.smallThumbnail}"
+            android:layout_margin="3dp"/>
 
-        <TextView
-            android:id="@+id/book_shelf_item_title"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@{book.volumeInfo.title}"/>
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@+id/book_item_thumbnail">
+
+            <TextView
+                android:id="@+id/book_shelf_item_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="@{book.volumeInfo.title}"/>
+
+        </RelativeLayout>
+
     </RelativeLayout>
 
 </layout>
