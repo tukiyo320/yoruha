@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.github.chuross.recyclerviewadapters.ItemAdapter
 import jp.co.tukiyo.yoruha.R
-import jp.co.tukiyo.yoruha.api.googlebooks.model.SearchResultInfo
+import jp.co.tukiyo.yoruha.api.googlebooks.model.VolumeItem
 
-class BookSearchResultListAdapter(context: Context) : ItemAdapter<SearchResultInfo, BookSearchResultViewHolder>(context){
+class BookSearchResultListAdapter(context: Context) : ItemAdapter<VolumeItem, BookSearchResultViewHolder>(context){
     override fun getAdapterId(): Int = R.layout.search_result_item
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): BookSearchResultViewHolder {

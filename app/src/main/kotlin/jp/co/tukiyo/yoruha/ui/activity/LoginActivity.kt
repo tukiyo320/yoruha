@@ -28,6 +28,10 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), GoogleApiClient.OnCo
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        prefs.edit()
+                .removeGoogleOAuthToken()
+                .apply()
+
         val email = prefs.getUserEmail()
         if(email.isNotEmpty()) {
             getToken(email)

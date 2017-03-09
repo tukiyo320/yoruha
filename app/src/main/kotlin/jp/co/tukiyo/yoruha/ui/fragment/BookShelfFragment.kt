@@ -1,21 +1,44 @@
 package jp.co.tukiyo.yoruha.ui.fragment
 
 import android.os.Bundle
+import android.support.v7.widget.DividerItemDecoration
+import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import com.hannesdorfmann.fragmentargs.FragmentArgs
 import com.hannesdorfmann.fragmentargs.annotation.Arg
 import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs
 import jp.co.tukiyo.yoruha.R
 import jp.co.tukiyo.yoruha.databinding.FragmentBookShelfBinding
 import jp.co.tukiyo.yoruha.ui.adapter.BookShelfPagerAdapter
+import jp.co.tukiyo.yoruha.viewmodel.BookShelfFragmentViewModel
 
 @FragmentWithArgs
 class BookShelfFragment: BaseFragment<FragmentBookShelfBinding>() {
     override val layoutResourceId: Int = R.layout.fragment_book_shelf
+    val shelfViewModel: BookShelfFragmentViewModel by lazy {
+        BookShelfFragmentViewModel(context, info!!.no)
+    }
 
     @Arg
     var info: BookShelfPagerAdapter.BookShelf? = null
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        FragmentArgs.inject(this)
+        bindViewModel(shelfViewModel)
+    }
+
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding?.run {
+            bookShelfBooksList.apply {
+                layoutManager = LinearLayoutManager(activity)
+                adapter = shelfViewModel.adapter
+                addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+            }
+        }
+
+        shelfViewModel.fetchBooks()
     }
 }
