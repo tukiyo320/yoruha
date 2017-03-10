@@ -12,34 +12,34 @@ fun <T> Observable<T>.async(scheduler: Scheduler): Observable<T> {
 fun <T> Observable<T>.sync(): Observable<T> {
     return subscribeOn(AndroidSchedulers.mainThread()).observeOn(AndroidSchedulers.mainThread())
 }
-fun <T> Observable<T>.onError(block : (Throwable) -> Unit) : Subscription<T> {
-    return Subscription(this).onError(block)
+fun <T> Observable<T>.onError(block : (Throwable) -> Unit) : ObservableSubscription<T> {
+    return ObservableSubscription(this).onError(block)
 }
 
-fun <T> Observable<T>.onCompleted(block: () -> Unit) : Subscription<T> {
-    return Subscription(this).onCompleted(block)
+fun <T> Observable<T>.onCompleted(block: () -> Unit) : ObservableSubscription<T> {
+    return ObservableSubscription(this).onCompleted(block)
 }
 
-fun <T> Observable<T>.onNext(block: (T) -> Unit) : Subscription<T> {
-    return Subscription(this).onNext(block)
+fun <T> Observable<T>.onNext(block: (T) -> Unit) : ObservableSubscription<T> {
+    return ObservableSubscription(this).onNext(block)
 }
 
-open class Subscription<T>(val observable: Observable<T>) {
+open class ObservableSubscription<T>(val observable: Observable<T>) {
     private var error: (Throwable) -> Unit = {throw it}
     private var completed: () -> Unit = {}
     private var next: (T) -> Unit = {}
 
-    fun onError(block: (Throwable) -> Unit) : Subscription<T> {
+    fun onError(block: (Throwable) -> Unit) : ObservableSubscription<T> {
         error = block
         return this
     }
 
-    fun onCompleted(block: () -> Unit) : Subscription<T> {
+    fun onCompleted(block: () -> Unit) : ObservableSubscription<T> {
         completed = block
         return this
     }
 
-    fun onNext(block: (T) -> Unit) : Subscription<T> {
+    fun onNext(block: (T) -> Unit) : ObservableSubscription<T> {
         next = block
         return this
     }
