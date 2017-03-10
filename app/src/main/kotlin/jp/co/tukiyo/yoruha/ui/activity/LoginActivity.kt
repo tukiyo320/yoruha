@@ -28,10 +28,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), GoogleApiClient.OnCo
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        prefs.edit()
-                .removeGoogleOAuthToken()
-                .apply()
-
         val email = prefs.getUserEmail()
         if(email.isNotEmpty()) {
             getToken(email)
@@ -82,7 +78,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), GoogleApiClient.OnCo
         if (!result.isSuccess) return
 
         val account = result.signInAccount
-        
+
         getToken(account.email)
                 .async(Schedulers.newThread())
                 .onNext {
@@ -95,7 +91,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), GoogleApiClient.OnCo
                 }
                 .subscribe()
     }
-    
+
     fun getToken(email: String): Observable<String> {
         return Observable.create<String> { subscriber ->
             try {
