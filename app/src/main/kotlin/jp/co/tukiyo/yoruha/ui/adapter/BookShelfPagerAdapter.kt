@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import com.astuetz.PagerSlidingTabStrip
+import jp.co.tukiyo.yoruha.element.BookShelf
 import jp.co.tukiyo.yoruha.ui.fragment.BookShelfFragmentBuilder
 import java.io.Serializable
 
@@ -39,10 +40,4 @@ class BookShelfPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm)
     fun getItemInfo(position: Int): BookShelf {
         return tabs[position]
     }
-
-    data class BookShelf(
-            val no: Int,
-            val title: String,
-            val removable: Boolean
-    ): Serializable
 }

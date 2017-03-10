@@ -10,9 +10,9 @@ import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs
 import jp.co.tukiyo.yoruha.R
 import jp.co.tukiyo.yoruha.api.googlebooks.model.VolumeItem
 import jp.co.tukiyo.yoruha.databinding.FragmentBookShelfBinding
-import jp.co.tukiyo.yoruha.ui.adapter.BookShelfItemListAdapter
+import jp.co.tukiyo.yoruha.element.BookShelf
 import jp.co.tukiyo.yoruha.ui.adapter.BookListItemViewHolder
-import jp.co.tukiyo.yoruha.ui.adapter.BookShelfPagerAdapter
+import jp.co.tukiyo.yoruha.ui.adapter.BookShelfItemListAdapter
 import jp.co.tukiyo.yoruha.viewmodel.BookShelfFragmentViewModel
 
 @FragmentWithArgs
@@ -21,10 +21,10 @@ class BookShelfFragment : BaseFragment<FragmentBookShelfBinding>(),
     override val layoutResourceId: Int = R.layout.fragment_book_shelf
 
     val shelfViewModel: BookShelfFragmentViewModel by lazy {
-        BookShelfFragmentViewModel(context, info!!.no)
+        BookShelfFragmentViewModel(context, info.no)
     }
     @Arg
-    var info: BookShelfPagerAdapter.BookShelf? = null
+    lateinit var info: BookShelf
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
