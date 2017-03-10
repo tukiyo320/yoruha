@@ -6,14 +6,18 @@ import android.widget.Toast
 import io.reactivex.schedulers.Schedulers
 import jp.co.tukiyo.yoruha.api.googlebooks.GoogleBooksAPIClient
 import jp.co.tukiyo.yoruha.api.googlebooks.GoogleBooksAPIClientBuilder
+import jp.co.tukiyo.yoruha.api.googlebooks.model.VolumeItem
 import jp.co.tukiyo.yoruha.extensions.*
 import jp.co.tukiyo.yoruha.ui.adapter.BookShelfItemListAdapter
+import jp.co.tukiyo.yoruha.ui.fragment.BaseFragment
+import jp.co.tukiyo.yoruha.ui.screen.BookInfoScreen
 import retrofit2.HttpException
 
-class BookShelfFragmentViewModel(context: Context, val shelfId: Int) : FragmentViewModel(context) {
+class BookShelfFragmentViewModel(context: Context, val shelfId: Int)
+    : FragmentViewModel(context) {
     val prefs: SharedPreferences = context.getSharedPreference()
-    val adapter: BookShelfItemListAdapter = BookShelfItemListAdapter(context)
     val client: GoogleBooksAPIClient = GoogleBooksAPIClientBuilder().build()
+    lateinit var adapter: BookShelfItemListAdapter
 
     fun fetchBooks() {
         client.myShelfBooks(getStoredToken(), shelfId)
@@ -43,5 +47,9 @@ class BookShelfFragmentViewModel(context: Context, val shelfId: Int) : FragmentV
         return prefs.getGoogleOAuthToken().let {
             "Bearer " + context.crypto.decrypt(it)
         }
+    }
+
+    fun onItemClick(item: VolumeItem, fragment: BaseFragment<*>) {
+        fragment.screenActivity.pushScreen(BookInfoScreen(item.id))
     }
 }

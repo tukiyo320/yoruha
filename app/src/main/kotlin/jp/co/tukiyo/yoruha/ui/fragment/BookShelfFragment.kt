@@ -8,17 +8,21 @@ import com.hannesdorfmann.fragmentargs.FragmentArgs
 import com.hannesdorfmann.fragmentargs.annotation.Arg
 import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs
 import jp.co.tukiyo.yoruha.R
+import jp.co.tukiyo.yoruha.api.googlebooks.model.VolumeItem
 import jp.co.tukiyo.yoruha.databinding.FragmentBookShelfBinding
+import jp.co.tukiyo.yoruha.ui.adapter.BookShelfItemListAdapter
+import jp.co.tukiyo.yoruha.ui.adapter.BookShelfItemViewHolder
 import jp.co.tukiyo.yoruha.ui.adapter.BookShelfPagerAdapter
 import jp.co.tukiyo.yoruha.viewmodel.BookShelfFragmentViewModel
 
 @FragmentWithArgs
-class BookShelfFragment: BaseFragment<FragmentBookShelfBinding>() {
+class BookShelfFragment : BaseFragment<FragmentBookShelfBinding>(),
+        BookShelfItemViewHolder.OnBookShelfItemClickListener {
     override val layoutResourceId: Int = R.layout.fragment_book_shelf
+
     val shelfViewModel: BookShelfFragmentViewModel by lazy {
         BookShelfFragmentViewModel(context, info!!.no)
     }
-
     @Arg
     var info: BookShelfPagerAdapter.BookShelf? = null
 
@@ -26,6 +30,7 @@ class BookShelfFragment: BaseFragment<FragmentBookShelfBinding>() {
         super.onCreate(savedInstanceState)
         FragmentArgs.inject(this)
         bindViewModel(shelfViewModel)
+        shelfViewModel.adapter = BookShelfItemListAdapter(context, this)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -40,5 +45,9 @@ class BookShelfFragment: BaseFragment<FragmentBookShelfBinding>() {
         }
 
         shelfViewModel.fetchBooks()
+    }
+
+    override fun onItemClick(item: VolumeItem) {
+        shelfViewModel.onItemClick(item, this)
     }
 }
