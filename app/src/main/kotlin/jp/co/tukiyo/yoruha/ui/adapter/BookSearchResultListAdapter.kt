@@ -9,20 +9,20 @@ import android.view.ViewGroup
 import com.github.chuross.recyclerviewadapters.ItemAdapter
 import jp.co.tukiyo.yoruha.R
 import jp.co.tukiyo.yoruha.api.googlebooks.model.VolumeItem
+import jp.co.tukiyo.yoruha.databinding.BookListItemBinding
 import jp.co.tukiyo.yoruha.databinding.SearchResultItemBinding
 
-class BookSearchResultListAdapter(context: Context) : ItemAdapter<VolumeItem, BookSearchResultListAdapter.BookSearchResultViewHolder>(context){
-    override fun getAdapterId(): Int = R.layout.search_result_item
+class BookSearchResultListAdapter(
+        context: Context,
+        val listener: BookListItemViewHolder.OnBookShelfItemClickListener
+) : ItemAdapter<VolumeItem, BookListItemViewHolder>(context) {
+    override fun getAdapterId(): Int = R.layout.book_list_item
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): BookSearchResultViewHolder {
-        return BookSearchResultViewHolder(LayoutInflater.from(context).inflate(adapterId, parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): BookListItemViewHolder {
+        return BookListItemViewHolder(LayoutInflater.from(context).inflate(adapterId, parent, false))
     }
 
-    override fun onBindViewHolder(holder: BookSearchResultViewHolder?, position: Int) {
-        holder?.binding?.book = get(position)
-    }
-
-    class BookSearchResultViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val binding: SearchResultItemBinding = DataBindingUtil.bind(itemView)
+    override fun onBindViewHolder(holder: BookListItemViewHolder?, position: Int) {
+        holder?.bind(get(position), listener)
     }
 }

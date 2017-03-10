@@ -9,15 +9,15 @@ import jp.co.tukiyo.yoruha.api.googlebooks.model.VolumeItem
 
 class BookShelfItemListAdapter(
         context: Context,
-        val listener: BookShelfItemViewHolder.OnBookShelfItemClickListener
-): ItemAdapter<VolumeItem, BookShelfItemViewHolder>(context) {
-    override fun getAdapterId(): Int = R.layout.book_shelf_item
+        val listener: BookListItemViewHolder.OnBookShelfItemClickListener
+): ItemAdapter<VolumeItem, BookListItemViewHolder>(context) {
+    override fun getAdapterId(): Int = R.layout.book_list_item
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): BookShelfItemViewHolder {
-        return BookShelfItemViewHolder(LayoutInflater.from(context).inflate(adapterId, parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): BookListItemViewHolder {
+        return BookListItemViewHolder(LayoutInflater.from(context).inflate(adapterId, parent, false))
     }
 
-    override fun onBindViewHolder(holder: BookShelfItemViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: BookListItemViewHolder?, position: Int) {
         holder?.bind(get(position), listener)
     }
 }

@@ -9,13 +9,16 @@ import io.reactivex.Scheduler
 import io.reactivex.schedulers.Schedulers
 import jp.co.tukiyo.yoruha.api.googlebooks.GoogleBooksAPIClient
 import jp.co.tukiyo.yoruha.api.googlebooks.GoogleBooksAPIClientBuilder
+import jp.co.tukiyo.yoruha.api.googlebooks.model.VolumeItem
 import jp.co.tukiyo.yoruha.extensions.async
 import jp.co.tukiyo.yoruha.extensions.onNext
 import jp.co.tukiyo.yoruha.extensions.sync
 import jp.co.tukiyo.yoruha.ui.adapter.BookSearchResultListAdapter
+import jp.co.tukiyo.yoruha.ui.fragment.BaseFragment
+import jp.co.tukiyo.yoruha.ui.screen.BookInfoScreen
 
 class SearchResultListFragmentViewModel(context: Context) : FragmentViewModel(context) {
-    val listAdapter: BookSearchResultListAdapter = BookSearchResultListAdapter(context)
+    lateinit var adapter: BookSearchResultListAdapter
     var orderBy: GoogleBooksAPIClient.OrderBy = GoogleBooksAPIClient.OrderBy.RELEVANCE
 
     fun search(query: String) {
@@ -29,7 +32,7 @@ class SearchResultListFragmentViewModel(context: Context) : FragmentViewModel(co
                 .compose(bindToLifecycle())
                 .map { it.items }
                 .onNext {
-                    listAdapter.run {
+                    adapter.run {
                         clear()
                         addAll(it)
                         notifyDataSetChanged()
@@ -43,5 +46,9 @@ class SearchResultListFragmentViewModel(context: Context) : FragmentViewModel(co
 
     fun refresh(query: String) {
         search(query)
+    }
+
+    fun onItemClick(item: VolumeItem, fragment: BaseFragment<*>) {
+        fragment.screenActivity.pushScreen(BookInfoScreen(item.id))
     }
 }

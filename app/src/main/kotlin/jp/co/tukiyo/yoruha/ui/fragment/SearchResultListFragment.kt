@@ -11,14 +11,17 @@ import com.hannesdorfmann.fragmentargs.annotation.Arg
 import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs
 import jp.co.tukiyo.yoruha.R
 import jp.co.tukiyo.yoruha.api.googlebooks.GoogleBooksAPIClient
+import jp.co.tukiyo.yoruha.api.googlebooks.model.VolumeItem
 import jp.co.tukiyo.yoruha.databinding.FragmentSearchResultListBinding
+import jp.co.tukiyo.yoruha.ui.adapter.BookListItemViewHolder
 import jp.co.tukiyo.yoruha.ui.adapter.BookSearchResultListAdapter
 import jp.co.tukiyo.yoruha.viewmodel.SearchResultListFragmentViewModel
 
 @FragmentWithArgs
 class SearchResultListFragment : BaseFragment<FragmentSearchResultListBinding>(),
         SearchView.OnQueryTextListener,
-        Toolbar.OnMenuItemClickListener {
+        Toolbar.OnMenuItemClickListener,
+        BookListItemViewHolder.OnBookShelfItemClickListener {
     @Arg(key = "queryString")
     var query: String = ""
 
@@ -32,6 +35,7 @@ class SearchResultListFragment : BaseFragment<FragmentSearchResultListBinding>()
         super.onCreate(savedInstanceState)
         bindViewModel(searchViewModel)
         setHasOptionsMenu(true)
+        searchViewModel.adapter = BookSearchResultListAdapter(context, this)
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -47,7 +51,7 @@ class SearchResultListFragment : BaseFragment<FragmentSearchResultListBinding>()
         binding?.run {
             searchResultList.run {
                 layoutManager = LinearLayoutManager(activity)
-                adapter = searchViewModel.listAdapter
+                adapter = searchViewModel.adapter
                 addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
             }
             searchResultRefresh.run {
@@ -102,5 +106,9 @@ class SearchResultListFragment : BaseFragment<FragmentSearchResultListBinding>()
             }
         }
         return true
+    }
+
+    override fun onItemClick(item: VolumeItem) {
+        searchViewModel.onItemClick(item, this)
     }
 }

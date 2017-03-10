@@ -11,13 +11,13 @@ import jp.co.tukiyo.yoruha.R
 import jp.co.tukiyo.yoruha.api.googlebooks.model.VolumeItem
 import jp.co.tukiyo.yoruha.databinding.FragmentBookShelfBinding
 import jp.co.tukiyo.yoruha.ui.adapter.BookShelfItemListAdapter
-import jp.co.tukiyo.yoruha.ui.adapter.BookShelfItemViewHolder
+import jp.co.tukiyo.yoruha.ui.adapter.BookListItemViewHolder
 import jp.co.tukiyo.yoruha.ui.adapter.BookShelfPagerAdapter
 import jp.co.tukiyo.yoruha.viewmodel.BookShelfFragmentViewModel
 
 @FragmentWithArgs
 class BookShelfFragment : BaseFragment<FragmentBookShelfBinding>(),
-        BookShelfItemViewHolder.OnBookShelfItemClickListener {
+        BookListItemViewHolder.OnBookShelfItemClickListener {
     override val layoutResourceId: Int = R.layout.fragment_book_shelf
 
     val shelfViewModel: BookShelfFragmentViewModel by lazy {
