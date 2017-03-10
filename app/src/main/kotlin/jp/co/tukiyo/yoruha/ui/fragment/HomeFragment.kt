@@ -5,7 +5,6 @@ import android.support.v7.widget.SearchView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs
 import jp.co.tukiyo.yoruha.R
 import jp.co.tukiyo.yoruha.databinding.FragmentHomeBinding
@@ -25,7 +24,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), SearchView.OnQueryText
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         return binding?.apply {
-            adapter.view = bookShelfPager
             toolbar.inflateMenu(R.menu.menu_home)
         }?.root
     }
