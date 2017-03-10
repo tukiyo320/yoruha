@@ -5,12 +5,14 @@ import android.content.Context
 import android.widget.Toast
 import com.google.android.gms.auth.GoogleAuthUtil
 import com.google.android.gms.auth.UserRecoverableAuthException
+import io.reactivex.Completable
 import io.reactivex.Observable
 import jp.co.tukiyo.yoruha.api.googlebooks.model.BookShelfVolumesResponse
 import jp.co.tukiyo.yoruha.api.googlebooks.model.BooksResponse
 import jp.co.tukiyo.yoruha.api.googlebooks.model.VolumeItem
 import jp.co.tukiyo.yoruha.extensions.getSharedPreference
 import jp.co.tukiyo.yoruha.extensions.getUserEmail
+import okhttp3.ResponseBody
 import retrofit2.http.*
 
 interface GoogleBooksAPIClient {
@@ -49,4 +51,11 @@ interface GoogleBooksAPIClient {
 
     @GET("/books/v1/volumes/{volumeId}")
     fun bookInfo(@Path("volumeId") volumeId: String): Observable<VolumeItem>
+
+    @POST("/books/v1/mylibrary/bookshelves/{shelfId}/addVolume")
+    fun addBookToShelf(
+            @Header("Authorization") token: String,
+            @Path("shelfId") shelfId: Int,
+            @Query("volumeId") volumeId: String
+    ): Completable
 }

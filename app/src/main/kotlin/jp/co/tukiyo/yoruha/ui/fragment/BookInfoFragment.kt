@@ -28,7 +28,14 @@ class BookInfoFragment: BaseFragment<FragmentBookInfoBinding>() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding?.viewModel = infoViewModel
+        binding?.run {
+            viewModel = infoViewModel
+
+            bookInfoAddToBookshelfButton.setOnClickListener {
+                AddBookToBookshelfDialogFragmentBuilder(volumeId).build()
+                        .show(fragmentManager, "add_book")
+            }
+        }
 
         infoViewModel.fetchInfo()
     }

@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Yoruha</string>
     <string name="policy_accept_word">同意する</string>
+    <string name="add_bookshelf">本棚に追加する</string>
 </resources>
