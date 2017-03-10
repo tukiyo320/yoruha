@@ -20,7 +20,7 @@ fun <T> Observable<T>.onCompleted(block: () -> Unit) : ObservableSubscription<T>
     return ObservableSubscription(this).onCompleted(block)
 }
 
-fun <T> Observable<T>.onNext(block: (T) -> Unit) : ObservableSubscription<T> {
+fun <T> Observable<T>.onSuccess(block: (T) -> Unit) : ObservableSubscription<T> {
     return ObservableSubscription(this).onNext(block)
 }
 

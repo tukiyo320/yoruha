@@ -9,7 +9,7 @@ import jp.co.tukiyo.yoruha.api.googlebooks.GoogleBooksAPIClient
 import jp.co.tukiyo.yoruha.api.googlebooks.GoogleBooksAPIClientBuilder
 import jp.co.tukiyo.yoruha.api.googlebooks.model.VolumeItem
 import jp.co.tukiyo.yoruha.extensions.async
-import jp.co.tukiyo.yoruha.extensions.onNext
+import jp.co.tukiyo.yoruha.extensions.onSuccess
 
 class BookInfoFragmentViewModel(context: Context, val volumeId: String): FragmentViewModel(context) {
     val book: ObservableField<VolumeItem> = ObservableField()
@@ -19,7 +19,7 @@ class BookInfoFragmentViewModel(context: Context, val volumeId: String): Fragmen
     fun fetchInfo() {
         client.bookInfo(volumeId)
                 .async(Schedulers.newThread())
-                .onNext {
+                .onSuccess {
                     book.set(it)
                     description.set(Html.fromHtml(it.volumeInfo.description))
                 }

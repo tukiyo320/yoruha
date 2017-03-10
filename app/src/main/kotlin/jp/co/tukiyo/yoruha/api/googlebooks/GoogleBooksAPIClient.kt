@@ -7,6 +7,7 @@ import com.google.android.gms.auth.GoogleAuthUtil
 import com.google.android.gms.auth.UserRecoverableAuthException
 import io.reactivex.Completable
 import io.reactivex.Observable
+import io.reactivex.Single
 import jp.co.tukiyo.yoruha.api.googlebooks.model.BookShelfVolumesResponse
 import jp.co.tukiyo.yoruha.api.googlebooks.model.BooksResponse
 import jp.co.tukiyo.yoruha.api.googlebooks.model.VolumeItem
@@ -40,17 +41,17 @@ interface GoogleBooksAPIClient {
     }
 
     @GET("/books/v1/volumes")
-    fun search(@Query("q") q: String): Observable<BooksResponse>
+    fun search(@Query("q") q: String): Single<BooksResponse>
 
     @GET("/books/v1/volumes")
-    fun search(@Query("q") q: String, @Query("orderBy") orderBy: String, @Query("startIndex") startIndex: Int) : Observable<BooksResponse>
+    fun search(@Query("q") q: String, @Query("orderBy") orderBy: String, @Query("startIndex") startIndex: Int): Single<BooksResponse>
 
     @Headers("Content-Type: application/json")
     @GET("/books/v1/mylibrary/bookshelves/{shelfId}/volumes")
-    fun myShelfBooks(@Header("Authorization") token: String, @Path("shelfId") shelfId: Int) : Observable<BookShelfVolumesResponse>
+    fun myShelfBooks(@Header("Authorization") token: String, @Path("shelfId") shelfId: Int): Single<BookShelfVolumesResponse>
 
     @GET("/books/v1/volumes/{volumeId}")
-    fun bookInfo(@Path("volumeId") volumeId: String): Observable<VolumeItem>
+    fun bookInfo(@Path("volumeId") volumeId: String): Single<VolumeItem>
 
     @POST("/books/v1/mylibrary/bookshelves/{shelfId}/addVolume")
     fun addBookToShelf(

@@ -1,18 +1,13 @@
 package jp.co.tukiyo.yoruha.viewmodel
 
 import android.content.Context
-import android.databinding.BaseObservable
-import android.databinding.ObservableField
 import android.widget.Toast
-import io.reactivex.Observable
-import io.reactivex.Scheduler
 import io.reactivex.schedulers.Schedulers
 import jp.co.tukiyo.yoruha.api.googlebooks.GoogleBooksAPIClient
 import jp.co.tukiyo.yoruha.api.googlebooks.GoogleBooksAPIClientBuilder
 import jp.co.tukiyo.yoruha.api.googlebooks.model.VolumeItem
 import jp.co.tukiyo.yoruha.extensions.async
-import jp.co.tukiyo.yoruha.extensions.onNext
-import jp.co.tukiyo.yoruha.extensions.sync
+import jp.co.tukiyo.yoruha.extensions.onSuccess
 import jp.co.tukiyo.yoruha.ui.adapter.BookSearchResultListAdapter
 import jp.co.tukiyo.yoruha.ui.fragment.BaseFragment
 import jp.co.tukiyo.yoruha.ui.screen.BookInfoScreen
@@ -31,7 +26,7 @@ class SearchResultListFragmentViewModel(context: Context) : FragmentViewModel(co
                 .async(Schedulers.newThread())
                 .compose(bindToLifecycle())
                 .map { it.items }
-                .onNext {
+                .onSuccess {
                     adapter.run {
                         clear()
                         addAll(it)

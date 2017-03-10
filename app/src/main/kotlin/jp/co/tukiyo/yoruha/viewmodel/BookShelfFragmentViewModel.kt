@@ -32,7 +32,7 @@ class BookShelfFragmentViewModel(context: Context, val shelfId: Int)
                 .compose(bindToLifecycle())
                 .async(Schedulers.newThread())
                 .map { it.items }
-                .onNext {
+                .onSuccess {
                     adapter.clear()
                     adapter.addAll(it)
                     adapter.notifyDataSetChanged()

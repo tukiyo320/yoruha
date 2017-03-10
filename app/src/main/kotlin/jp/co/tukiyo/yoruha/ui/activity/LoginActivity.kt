@@ -32,7 +32,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), GoogleApiClient.OnCo
         if(email.isNotEmpty()) {
             getToken(email)
                     .async(Schedulers.newThread())
-                    .onNext {
+                    .onSuccess {
                         storeAuthData(email, it)
                         startActivity(Intent(this, ScreenActivity::class.java))
                         finish()
@@ -81,7 +81,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), GoogleApiClient.OnCo
 
         getToken(account.email)
                 .async(Schedulers.newThread())
-                .onNext {
+                .onSuccess {
                     storeAuthData(account.email, it)
                     startActivity(Intent(this, ScreenActivity::class.java))
                     finish()
