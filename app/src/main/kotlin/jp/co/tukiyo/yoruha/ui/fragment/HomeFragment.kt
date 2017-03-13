@@ -18,7 +18,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), SearchView.OnQueryText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter = BookShelfPagerAdapter(fragmentManager)
+        adapter = BookShelfPagerAdapter(childFragmentManager)
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
