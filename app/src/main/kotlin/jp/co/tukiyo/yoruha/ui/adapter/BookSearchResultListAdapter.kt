@@ -11,18 +11,19 @@ import jp.co.tukiyo.yoruha.R
 import jp.co.tukiyo.yoruha.api.googlebooks.model.VolumeItem
 import jp.co.tukiyo.yoruha.databinding.BookListItemBinding
 import jp.co.tukiyo.yoruha.databinding.SearchResultItemBinding
+import jp.co.tukiyo.yoruha.ui.listener.OnListsBookItemListener
 
 class BookSearchResultListAdapter(
         context: Context,
-        val listener: BookListItemViewHolder.OnBookShelfItemListener
-) : ItemAdapter<VolumeItem, BookListItemViewHolder>(context) {
-    override fun getAdapterId(): Int = R.layout.book_list_item
+        val listener: OnListsBookItemListener
+) : ItemAdapter<VolumeItem, BookSearchResultItemViewHolder>(context) {
+    override fun getAdapterId(): Int = R.layout.search_result_item
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): BookListItemViewHolder {
-        return BookListItemViewHolder(LayoutInflater.from(context).inflate(adapterId, parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): BookSearchResultItemViewHolder {
+        return BookSearchResultItemViewHolder(LayoutInflater.from(context).inflate(adapterId, parent, false))
     }
 
-    override fun onBindViewHolder(holder: BookListItemViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: BookSearchResultItemViewHolder?, position: Int) {
         holder?.bind(get(position), listener)
     }
 }

@@ -49,7 +49,7 @@ class BookShelfFragment : BaseFragment<FragmentBookShelfBinding>(),
         shelfViewModel.fetchBooks()
     }
 
-    override fun onItemClick(item: VolumeItem) {
+    override fun onBookClick(item: VolumeItem) {
         shelfViewModel.onItemClick(item, this)
     }
 

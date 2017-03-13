@@ -15,16 +15,14 @@ import jp.co.tukiyo.yoruha.api.googlebooks.model.VolumeItem
 import jp.co.tukiyo.yoruha.databinding.FragmentSearchResultListBinding
 import jp.co.tukiyo.yoruha.ui.adapter.BookListItemViewHolder
 import jp.co.tukiyo.yoruha.ui.adapter.BookSearchResultListAdapter
+import jp.co.tukiyo.yoruha.ui.listener.OnListsBookItemListener
 import jp.co.tukiyo.yoruha.viewmodel.SearchResultListFragmentViewModel
 
 @FragmentWithArgs
 class SearchResultListFragment : BaseFragment<FragmentSearchResultListBinding>(),
         SearchView.OnQueryTextListener,
         Toolbar.OnMenuItemClickListener,
-        BookListItemViewHolder.OnBookShelfItemListener {
-    override fun onItemRemove(item: VolumeItem) {
-
-    }
+        OnListsBookItemListener {
 
     @Arg(key = "queryString")
     var query: String = ""
@@ -112,7 +110,7 @@ class SearchResultListFragment : BaseFragment<FragmentSearchResultListBinding>()
         return true
     }
 
-    override fun onItemClick(item: VolumeItem) {
+    override fun onBookClick(item: VolumeItem) {
         searchViewModel.onItemClick(item, this)
     }
 }

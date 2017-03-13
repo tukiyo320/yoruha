@@ -7,6 +7,7 @@ import android.view.View
 import jp.co.tukiyo.yoruha.R
 import jp.co.tukiyo.yoruha.api.googlebooks.model.VolumeItem
 import jp.co.tukiyo.yoruha.databinding.BookListItemBinding
+import jp.co.tukiyo.yoruha.ui.listener.OnListsBookItemListener
 
 class BookListItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val binding: BookListItemBinding = DataBindingUtil.bind(itemView)
@@ -15,7 +16,7 @@ class BookListItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
         binding.apply {
             book = item
             itemView.setOnClickListener {
-                listener.onItemClick(item)
+                listener.onBookClick(item)
             }
             bookItemMenu.setOnClickListener {
                 PopupMenu(itemView.context, it).run {
@@ -34,8 +35,7 @@ class BookListItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
         }
     }
 
-    interface OnBookShelfItemListener {
-        fun onItemClick(item: VolumeItem)
+    interface OnBookShelfItemListener: OnListsBookItemListener {
         fun onItemRemove(item: VolumeItem)
     }
 }
