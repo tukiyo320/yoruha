@@ -21,7 +21,11 @@ import jp.co.tukiyo.yoruha.viewmodel.SearchResultListFragmentViewModel
 class SearchResultListFragment : BaseFragment<FragmentSearchResultListBinding>(),
         SearchView.OnQueryTextListener,
         Toolbar.OnMenuItemClickListener,
-        BookListItemViewHolder.OnBookShelfItemClickListener {
+        BookListItemViewHolder.OnBookShelfItemListener {
+    override fun onItemRemove(position: Int, volumeId: String) {
+
+    }
+
     @Arg(key = "queryString")
     var query: String = ""
 

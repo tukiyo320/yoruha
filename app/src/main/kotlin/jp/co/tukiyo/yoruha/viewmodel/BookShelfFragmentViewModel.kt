@@ -52,4 +52,8 @@ class BookShelfFragmentViewModel(context: Context, val shelfId: Int)
     fun onItemClick(item: VolumeItem, fragment: BaseFragment<*>) {
         fragment.screenActivity.pushScreen(BookInfoScreen(item.id))
     }
+
+    fun onItemRemove(position: Int, volumeId: String, fragment: BaseFragment<*>) {
+        Toast.makeText(context, "will remove $position:$volumeId", Toast.LENGTH_SHORT).show()
+    }
 }

@@ -9,7 +9,7 @@ import jp.co.tukiyo.yoruha.api.googlebooks.model.VolumeItem
 
 class BookShelfItemListAdapter(
         context: Context,
-        val listener: BookListItemViewHolder.OnBookShelfItemClickListener
+        val listener: BookListItemViewHolder.OnBookShelfItemListener
 ): ItemAdapter<VolumeItem, BookListItemViewHolder>(context) {
     override fun getAdapterId(): Int = R.layout.book_list_item
 

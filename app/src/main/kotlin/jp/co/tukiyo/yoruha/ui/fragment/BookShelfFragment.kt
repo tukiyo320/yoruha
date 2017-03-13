@@ -3,6 +3,7 @@ package jp.co.tukiyo.yoruha.ui.fragment
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
+import android.view.MenuItem
 import android.view.View
 import com.hannesdorfmann.fragmentargs.FragmentArgs
 import com.hannesdorfmann.fragmentargs.annotation.Arg
@@ -17,12 +18,13 @@ import jp.co.tukiyo.yoruha.viewmodel.BookShelfFragmentViewModel
 
 @FragmentWithArgs
 class BookShelfFragment : BaseFragment<FragmentBookShelfBinding>(),
-        BookListItemViewHolder.OnBookShelfItemClickListener {
+        BookListItemViewHolder.OnBookShelfItemListener {
     override val layoutResourceId: Int = R.layout.fragment_book_shelf
 
     val shelfViewModel: BookShelfFragmentViewModel by lazy {
         BookShelfFragmentViewModel(context, info.no)
     }
+
     @Arg
     lateinit var info: BookShelf
 
@@ -49,5 +51,9 @@ class BookShelfFragment : BaseFragment<FragmentBookShelfBinding>(),
 
     override fun onItemClick(item: VolumeItem) {
         shelfViewModel.onItemClick(item, this)
+    }
+
+    override fun onItemRemove(position: Int, volumeId: String) {
+        shelfViewModel.onItemRemove(position, volumeId, this)
     }
 }

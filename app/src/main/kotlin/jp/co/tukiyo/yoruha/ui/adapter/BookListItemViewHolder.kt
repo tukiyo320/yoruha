@@ -1,24 +1,41 @@
 package jp.co.tukiyo.yoruha.ui.adapter
 
 import android.databinding.DataBindingUtil
+import android.support.v7.widget.PopupMenu
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import jp.co.tukiyo.yoruha.R
 import jp.co.tukiyo.yoruha.api.googlebooks.model.VolumeItem
 import jp.co.tukiyo.yoruha.databinding.BookListItemBinding
 
 class BookListItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val binding: BookListItemBinding = DataBindingUtil.bind(itemView)
 
-    fun bind(item: VolumeItem, listener: OnBookShelfItemClickListener) {
+    fun bind(item: VolumeItem, listener: OnBookShelfItemListener) {
         binding.apply {
             book = item
             itemView.setOnClickListener {
                 listener.onItemClick(item)
             }
+            bookItemMenu.setOnClickListener {
+                PopupMenu(itemView.context, it).run {
+                    menuInflater.inflate(R.menu.menu_shelves_book, menu)
+                    setOnMenuItemClickListener { menuItem ->
+                        when(menuItem.itemId) {
+                            R.id.menu_shelves_book_remove -> {
+                                listener.onItemRemove(adapterPosition, item.id)
+                            }
+                        }
+                        return@setOnMenuItemClickListener true
+                    }
+                    show()
+                }
+            }
         }
     }
 
-    interface OnBookShelfItemClickListener {
+    interface OnBookShelfItemListener {
         fun onItemClick(item: VolumeItem)
+        fun onItemRemove(position: Int, volumeId: String)
     }
 }
