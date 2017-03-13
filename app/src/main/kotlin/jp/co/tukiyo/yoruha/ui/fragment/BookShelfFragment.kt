@@ -53,7 +53,7 @@ class BookShelfFragment : BaseFragment<FragmentBookShelfBinding>(),
         shelfViewModel.onItemClick(item, this)
     }
 
-    override fun onItemRemove(position: Int, volumeId: String) {
-        shelfViewModel.onItemRemove(position, volumeId, this)
+    override fun onItemRemove(item: VolumeItem) {
+        shelfViewModel.onItemRemove(item, this)
     }
 }

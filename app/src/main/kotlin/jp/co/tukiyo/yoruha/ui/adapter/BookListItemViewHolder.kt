@@ -23,7 +23,7 @@ class BookListItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
                     setOnMenuItemClickListener { menuItem ->
                         when(menuItem.itemId) {
                             R.id.menu_shelves_book_remove -> {
-                                listener.onItemRemove(adapterPosition, item.id)
+                                listener.onItemRemove(item)
                             }
                         }
                         return@setOnMenuItemClickListener true
@@ -36,6 +36,6 @@ class BookListItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     interface OnBookShelfItemListener {
         fun onItemClick(item: VolumeItem)
-        fun onItemRemove(position: Int, volumeId: String)
+        fun onItemRemove(item: VolumeItem)
     }
 }

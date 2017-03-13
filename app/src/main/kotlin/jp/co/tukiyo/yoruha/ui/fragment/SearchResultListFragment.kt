@@ -22,7 +22,7 @@ class SearchResultListFragment : BaseFragment<FragmentSearchResultListBinding>()
         SearchView.OnQueryTextListener,
         Toolbar.OnMenuItemClickListener,
         BookListItemViewHolder.OnBookShelfItemListener {
-    override fun onItemRemove(position: Int, volumeId: String) {
+    override fun onItemRemove(item: VolumeItem) {
 
     }
 

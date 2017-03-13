@@ -53,7 +53,24 @@ class BookShelfFragmentViewModel(context: Context, val shelfId: Int)
         fragment.screenActivity.pushScreen(BookInfoScreen(item.id))
     }
 
-    fun onItemRemove(position: Int, volumeId: String, fragment: BaseFragment<*>) {
-        Toast.makeText(context, "will remove $position:$volumeId", Toast.LENGTH_SHORT).show()
+    fun onItemRemove(item: VolumeItem, fragment: BaseFragment<*>) {
+        client.removeBook(getStoredToken(), shelfId, item.id)
+                .onErrorResumeNext {  t: Throwable ->
+                    val token = if (t is HttpException && t.code() == 401) {
+                        client.getToken(context).blockingFirst()
+                    } else {
+                        getStoredToken()
+                    }
+                    client.removeBook(token, shelfId, item.id)
+                }
+                .async(Schedulers.newThread())
+                .onCompleted {
+                    adapter.remove(item)
+                    Toast.makeText(context, "本棚から削除しました", Toast.LENGTH_SHORT).show()
+                }
+                .onError {
+                    Toast.makeText(context, "本棚から削除できませんでした", Toast.LENGTH_SHORT).show()
+                }
+                .subscribe()
     }
 }

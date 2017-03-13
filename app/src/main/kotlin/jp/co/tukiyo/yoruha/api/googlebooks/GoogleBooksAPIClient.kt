@@ -59,4 +59,11 @@ interface GoogleBooksAPIClient {
             @Path("shelfId") shelfId: Int,
             @Query("volumeId") volumeId: String
     ): Completable
+
+    @POST("/books/v1/mylibrary/bookshelves/{shelfId}/removeVolume")
+    fun removeBook(
+            @Header("Authorization") token: String,
+            @Path("shelfId") shelfId: Int,
+            @Query("volumeId") volumeId: String
+    ): Completable
 }
