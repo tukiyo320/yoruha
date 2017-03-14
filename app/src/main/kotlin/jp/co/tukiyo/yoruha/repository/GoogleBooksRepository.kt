@@ -1,7 +1,11 @@
 package jp.co.tukiyo.yoruha.repository
 
+import android.accounts.Account
 import android.content.Context
 import android.content.SharedPreferences
+import android.widget.Toast
+import com.google.android.gms.auth.GoogleAuthUtil
+import com.google.android.gms.auth.UserRecoverableAuthException
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
@@ -16,7 +20,11 @@ import retrofit2.HttpException
 class GoogleBooksRepository(val context: Context) {
     private val prefs: SharedPreferences = context.getSharedPreference()
     private val client: GoogleBooksAPIClient = GoogleBooksAPIClientBuilder().build()
-    private val authorizationHeader: String = "Bearer $token"
+    private val ACCOUNT_TYPE = "com.google"
+    private val SCOPE = "https://www.googleapis.com/auth/books"
+    private val authorizationHeader: String by lazy {
+        "Bearer $token"
+    }
     private var token: String
         get() {
             return prefs.getGoogleOAuthToken().let {
@@ -29,9 +37,30 @@ class GoogleBooksRepository(val context: Context) {
             }
         }
 
-    private fun refreshedToken(): String {
-        return client.getToken(context)
-                .onErrorReturn { token }
+    private fun authorization(email: String): Completable {
+        return Completable.create({ subscriber ->
+            try {
+                token = GoogleAuthUtil.getToken(context, Account(email, ACCOUNT_TYPE), "oauth2:$SCOPE")
+                subscriber.onComplete()
+            } catch (e: UserRecoverableAuthException) {
+                token = ""
+                subscriber.onError(e)
+            } catch (e: Exception) {
+                token = ""
+                subscriber.onError(e)
+            }
+        })
+    }
+
+    fun authorize(email: String): Completable {
+        return authorization(email)
+                .async(Schedulers.newThread())
+    }
+
+    private fun getRefreshedToken(): String {
+        return authorization(prefs.getUserEmail())
+                .async(Schedulers.newThread())
+                .andThen(Single.just(token))
                 .blockingGet()
     }
 
@@ -39,7 +68,7 @@ class GoogleBooksRepository(val context: Context) {
         return client.myShelfVolumes(authorizationHeader, shelfId)
                 .onErrorResumeNext {
                     if (it is HttpException && it.code() == 401) {
-                        token = refreshedToken()
+                        token = getRefreshedToken()
                     }
                     client.myShelfVolumes(authorizationHeader, shelfId)
                 }
@@ -55,7 +84,7 @@ class GoogleBooksRepository(val context: Context) {
         return client.removeVolume(authorizationHeader, shelfId, volumeId)
                 .onErrorResumeNext {
                     if (it is HttpException && it.code() == 401) {
-                        token = refreshedToken()
+                        token = getRefreshedToken()
                     }
                     client.removeVolume(authorizationHeader, shelfId, volumeId)
                 }
@@ -66,7 +95,7 @@ class GoogleBooksRepository(val context: Context) {
         return client.addVolumeToShelf(authorizationHeader, shelfId, volumeId)
                 .onErrorResumeNext {
                     if (it is HttpException && it.code() == 401) {
-                        token = refreshedToken()
+                        token = getRefreshedToken()
                     }
                     client.addVolumeToShelf(authorizationHeader, shelfId, volumeId)
                 }

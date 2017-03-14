@@ -32,7 +32,7 @@ interface GoogleBooksAPIClient {
                 val token = GoogleAuthUtil.getToken(context, Account(email, "com.google"), "oauth2:$scope")
                 subscriber.onSuccess(token)
             } catch (e: UserRecoverableAuthException) {
-                Toast.makeText(context, "authorization failed", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "authorize failed", Toast.LENGTH_SHORT).show()
                 subscriber.onError(e)
             } catch (e: Exception) {
                 subscriber.onError(e)

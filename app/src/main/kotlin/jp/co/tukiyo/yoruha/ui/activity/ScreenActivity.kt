@@ -9,6 +9,7 @@ import jp.co.tukiyo.yoruha.extensions.getUuid
 import jp.co.tukiyo.yoruha.extensions.isAcceptedToPolicy
 import jp.co.tukiyo.yoruha.extensions.putUuid
 import jp.co.tukiyo.yoruha.ui.screen.HomeScreen
+import jp.co.tukiyo.yoruha.ui.screen.LoginScreen
 import jp.co.tukiyo.yoruha.ui.screen.PolicyScreen
 import jp.co.tukiyo.yoruha.ui.screen.Screen
 import java.util.*
@@ -42,12 +43,7 @@ class ScreenActivity : BaseActivity<ActivityScreenBinding>() {
         super.onCreate(savedInstanceState)
 
         checkUuid()
-
-        if (prefs.isAcceptedToPolicy()) {
-            replaceScreen(HomeScreen())
-        } else {
-            replaceScreen(PolicyScreen())
-        }
+        replaceScreen(LoginScreen())
     }
 
     fun checkUuid() {
