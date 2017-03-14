@@ -18,19 +18,19 @@ import retrofit2.http.*
 
 interface GoogleBooksAPIClient {
 
-    enum class OrderBy(var command : String) {
+    enum class OrderBy(var command: String) {
         RELEVANCE("relevance"),
         NEWEST("newest");
     }
 
-    fun getToken(context: Context): Observable<String> {
+    fun getToken(context: Context): Single<String> {
         val email = context.getSharedPreference().getUserEmail()
         val scope = "https://www.googleapis.com/auth/books"
 
-        return Observable.create { subscriber ->
+        return Single.create { subscriber ->
             try {
                 val token = GoogleAuthUtil.getToken(context, Account(email, "com.google"), "oauth2:$scope")
-                subscriber.onNext(token)
+                subscriber.onSuccess(token)
             } catch (e: UserRecoverableAuthException) {
                 Toast.makeText(context, "authorization failed", Toast.LENGTH_SHORT).show()
                 subscriber.onError(e)
@@ -41,27 +41,24 @@ interface GoogleBooksAPIClient {
     }
 
     @GET("/books/v1/volumes")
-    fun search(@Query("q") q: String): Single<BooksResponse>
-
-    @GET("/books/v1/volumes")
     fun search(@Query("q") q: String, @Query("orderBy") orderBy: String, @Query("startIndex") startIndex: Int): Single<BooksResponse>
 
     @Headers("Content-Type: application/json")
     @GET("/books/v1/mylibrary/bookshelves/{shelfId}/volumes")
-    fun myShelfBooks(@Header("Authorization") token: String, @Path("shelfId") shelfId: Int): Single<BookShelfVolumesResponse>
+    fun myShelfVolumes(@Header("Authorization") token: String, @Path("shelfId") shelfId: Int): Single<BookShelfVolumesResponse>
 
     @GET("/books/v1/volumes/{volumeId}")
-    fun bookInfo(@Path("volumeId") volumeId: String): Single<VolumeItem>
+    fun volumeInfo(@Path("volumeId") volumeId: String): Single<VolumeItem>
 
     @POST("/books/v1/mylibrary/bookshelves/{shelfId}/addVolume")
-    fun addBookToShelf(
+    fun addVolumeToShelf(
             @Header("Authorization") token: String,
             @Path("shelfId") shelfId: Int,
             @Query("volumeId") volumeId: String
     ): Completable
 
     @POST("/books/v1/mylibrary/bookshelves/{shelfId}/removeVolume")
-    fun removeBook(
+    fun removeVolume(
             @Header("Authorization") token: String,
             @Path("shelfId") shelfId: Int,
             @Query("volumeId") volumeId: String

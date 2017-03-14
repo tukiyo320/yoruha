@@ -5,7 +5,7 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-open class AbstractAPIClientBuilder<T>(val baseUrl: String, val clazz: Class<T>) {
+open class AbstractAPIClientBuilder<T>(private val baseUrl: String, private val clazz: Class<T>) {
     val moshi : Moshi = Moshi.Builder().build()
 
     fun build(): T {
