@@ -44,6 +44,14 @@ class BookShelfFragment : BaseFragment<FragmentBookShelfBinding>(),
                 adapter = shelfViewModel.adapter
                 addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
             }
+            bookShelfRefresh.run {
+                setOnRefreshListener {
+                    shelfViewModel.fetchBooks()
+                    if (isRefreshing) {
+                        isRefreshing = false
+                    }
+                }
+            }
         }
 
         shelfViewModel.fetchBooks()
