@@ -15,6 +15,7 @@ class BookInfoFragmentViewModel(context: Context, val volumeId: String) : Fragme
 
     fun fetchInfo() {
         useCase.getBookInfo(volumeId)
+                .compose(bindToLifecycle())
                 .onSuccess {
                     book.set(it)
                     description.set(Html.fromHtml(it.volumeInfo.description))

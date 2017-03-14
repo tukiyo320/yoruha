@@ -3,6 +3,7 @@ package jp.co.tukiyo.yoruha.viewmodel
 import android.content.Context
 import android.support.v4.app.DialogFragment
 import android.widget.Toast
+import io.reactivex.CompletableTransformer
 import jp.co.tukiyo.yoruha.extensions.onCompleted
 import jp.co.tukiyo.yoruha.usecase.BookShelfManageUseCase
 
@@ -11,6 +12,7 @@ class AddBookToBookShelfDialogFragmentViewModel(context: Context) : FragmentView
 
     fun add(fragment: DialogFragment, shelfId: Int, volumeId: String) {
         useCase.addBook(shelfId, volumeId)
+                .compose(bindToLifecycle<CompletableTransformer>())
                 .doOnEvent {
                     fragment.dismiss()
                 }
