@@ -2,10 +2,7 @@ package jp.co.tukiyo.yoruha.ui.fragment
 
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.SearchView
-import android.support.v7.widget.Toolbar
+import android.support.v7.widget.*
 import android.view.*
 import com.hannesdorfmann.fragmentargs.annotation.Arg
 import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs
@@ -55,6 +52,15 @@ class SearchResultListFragment : BaseFragment<FragmentSearchResultListBinding>()
                 layoutManager = LinearLayoutManager(activity)
                 adapter = searchViewModel.adapter
                 addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+                addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                    override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+                        recyclerView?.run {
+                            (layoutManager as LinearLayoutManager).let {
+                                searchViewModel.additionalLoad(query, it.findLastVisibleItemPosition())
+                            }
+                        }
+                    }
+                })
             }
             searchResultRefresh.run {
                 setOnRefreshListener {

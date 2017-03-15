@@ -14,13 +14,10 @@ class SearchResultListFragmentViewModel(context: Context) : FragmentViewModel(co
     lateinit var adapter: BookSearchResultListAdapter
     var orderBy: GoogleBooksAPIClient.OrderBy = GoogleBooksAPIClient.OrderBy.RELEVANCE
     val useCase = BookShelfManageUseCase(context)
+    var additionalLoading: Boolean = false
 
     fun search(query: String) {
-        search(query, 0)
-    }
-
-    fun search(query: String, startIndex: Int) {
-        useCase.search(query, orderBy, startIndex)
+        useCase.search(query, orderBy, 0)
                 .compose(bindToLifecycle())
                 .onSuccess {
                     adapter.run {
@@ -33,6 +30,33 @@ class SearchResultListFragmentViewModel(context: Context) : FragmentViewModel(co
                     Toast.makeText(context, "search failed", Toast.LENGTH_SHORT).show()
                 }
                 .subscribe()
+    }
+
+    private fun additionalSearch(query: String, startIndex: Int) {
+        if (adapter.itemCount != startIndex) return
+
+        useCase.search(query, orderBy, startIndex)
+                .compose(bindToLifecycle())
+                .doFinally {
+                    additionalLoading = false
+                }
+                .onSuccess {
+                    adapter.run {
+                        addAll(it)
+                        notifyDataSetChanged()
+                    }
+                }
+                .onError {
+                    Toast.makeText(context, "search failed", Toast.LENGTH_SHORT).show()
+                }
+                .subscribe()
+    }
+
+    fun additionalLoad(query: String, lastVisibleItemPosition: Int) {
+        if (additionalLoading || lastVisibleItemPosition != adapter.itemCount - 1) return
+
+        additionalLoading = true
+        additionalSearch(query, adapter.itemCount)
     }
 
     fun refresh(query: String) {
