@@ -72,8 +72,8 @@ class ScreenActivity : BaseActivity<ActivityScreenBinding>() {
         replaceScreen(LoginScreen(false))
     }
 
-    fun fetchUserInfo() {
-        viewModel.fetchUserInfo()
+    fun applyUserInfo() {
+        viewModel.applyUserInfo()
     }
 
     fun checkUuid() {

@@ -10,7 +10,7 @@ class ScreenActivityViewModel(context: Context): ActivityViewModel(context) {
     private val useCase = UserAccountUseCase(context)
     val userInfo: RxProperty<UserInfo> = RxProperty()
 
-    fun fetchUserInfo() {
+    fun applyUserInfo() {
         useCase.getUserInfo()
                 .onSuccess {
                     userInfo.set(it)
