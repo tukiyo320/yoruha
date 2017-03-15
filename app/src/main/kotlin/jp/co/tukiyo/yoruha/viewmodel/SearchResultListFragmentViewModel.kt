@@ -45,6 +45,7 @@ class SearchResultListFragmentViewModel(context: Context) : FragmentViewModel(co
                         addAll(it)
                         notifyDataSetChanged()
                     }
+                    Toast.makeText(context, "↓next ${it.size} books", Toast.LENGTH_SHORT).show()
                 }
                 .onError {
                     Toast.makeText(context, "search failed", Toast.LENGTH_SHORT).show()
