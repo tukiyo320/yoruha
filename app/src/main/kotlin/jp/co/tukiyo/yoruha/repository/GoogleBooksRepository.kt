@@ -22,16 +22,16 @@ class GoogleBooksRepository(val context: Context) {
     private val client: GoogleBooksAPIClient = GoogleBooksAPIClientBuilder().build()
     private val ACCOUNT_TYPE = "com.google"
     private val SCOPE = "https://www.googleapis.com/auth/books"
-    private val authorizationHeader: String by lazy {
-        "Bearer $token"
-    }
-    private var token: String
+    private val authorizationHeader: String
+        get() = "Bearer $token"
+    private var token: String = ""
         get() {
             return prefs.getGoogleOAuthToken().let {
                 context.crypto.decrypt(it)
             }
         }
         set(value) {
+            field = value
             context.crypto.encrypt(value).run {
                 prefs.edit().putGoogleOAuthToken(this).apply()
             }
