@@ -4,6 +4,7 @@ import android.app.FragmentManager
 import android.content.SharedPreferences
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.v4.widget.DrawerLayout
 import jp.co.tukiyo.yoruha.R
 import jp.co.tukiyo.yoruha.databinding.ActivityScreenBinding
 import jp.co.tukiyo.yoruha.databinding.NavigationHeaderBinding
@@ -20,7 +21,7 @@ import java.util.*
 
 class ScreenActivity : BaseActivity<ActivityScreenBinding>() {
     override val layoutResourceId: Int = R.layout.activity_screen
-    val prefs : SharedPreferences by lazy {
+    val prefs: SharedPreferences by lazy {
         getSharedPreference()
     }
     val navigationHeaderBinding: NavigationHeaderBinding by lazy {
@@ -60,7 +61,7 @@ class ScreenActivity : BaseActivity<ActivityScreenBinding>() {
 
         navigationHeaderBinding.viewModel = viewModel
         binding.navigationView.setNavigationItemSelectedListener { item ->
-            when(item.itemId) {
+            when (item.itemId) {
                 R.id.drawer_logout -> {
                     popAllScreen()
                     replaceScreen(LoginScreen(true))
@@ -74,6 +75,10 @@ class ScreenActivity : BaseActivity<ActivityScreenBinding>() {
 
     fun applyUserInfo() {
         viewModel.applyUserInfo()
+    }
+
+    fun setDrawerLockMode(mode: Int) {
+        binding.screenDrawer.setDrawerLockMode(mode)
     }
 
     fun checkUuid() {

@@ -2,6 +2,7 @@ package jp.co.tukiyo.yoruha.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.widget.DrawerLayout
 import android.view.View
 import com.google.android.gms.common.SignInButton
 import com.hannesdorfmann.fragmentargs.annotation.Arg
@@ -33,6 +34,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        screenActivity.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
         binding?.signInButton?.apply {
             setSize(SignInButton.SIZE_STANDARD)
             setOnClickListener {
@@ -44,5 +46,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         loginViewModel.onSignInActivityResult(this, requestCode, resultCode, data)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        screenActivity.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
     }
 }
