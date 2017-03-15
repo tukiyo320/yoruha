@@ -41,3 +41,27 @@ fun SharedPreferences.Editor.putUserEmail(email: String): SharedPreferences.Edit
 fun SharedPreferences.Editor.removeUserEmail(): SharedPreferences.Editor {
     return remove("email")
 }
+
+fun SharedPreferences.getUserDisplayName(): String {
+    return getString("displayName", "")
+}
+
+fun SharedPreferences.Editor.putUserDisplayName(displayName: String): SharedPreferences.Editor {
+    return putString("displayName", displayName)
+}
+
+fun SharedPreferences.Editor.removeUserDisplayName(): SharedPreferences.Editor {
+    return remove("displayName")
+}
+
+fun SharedPreferences.getUserPhotoUrl(): String {
+    return getString("photoUrl", "")
+}
+
+fun SharedPreferences.Editor.putUserPhotoUrl(photoUrl: String): SharedPreferences.Editor {
+    return putString("photoUrl", photoUrl)
+}
+
+fun SharedPreferences.Editor.removeUserPhotoUrl(): SharedPreferences.Editor {
+    return remove("photoUrl")
+}

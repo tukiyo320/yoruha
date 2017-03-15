@@ -24,7 +24,10 @@ class LoginFragmentViewModel(context: Context) : FragmentViewModel(context), Goo
         accountUseCase.login()
                 .compose(bindToLifecycle<CompletableTransformer>())
                 .onCompleted {
-                    fragment.screenActivity.replaceScreen(getNextScreen())
+                    fragment.screenActivity.run {
+                        fetchUserInfo()
+                        replaceScreen(getNextScreen())
+                    }
                 }
                 .onError { }
                 .subscribe()
@@ -61,7 +64,10 @@ class LoginFragmentViewModel(context: Context) : FragmentViewModel(context), Goo
         accountUseCase.authorize(account)
                 .compose(bindToLifecycle<CompletableTransformer>())
                 .onCompleted {
-                    fragment.screenActivity.replaceScreen(getNextScreen())
+                    fragment.screenActivity.run {
+                        fetchUserInfo()
+                        replaceScreen(getNextScreen())
+                    }
                 }
                 .onError { e ->
                     if (e is UserRecoverableAuthException) {
