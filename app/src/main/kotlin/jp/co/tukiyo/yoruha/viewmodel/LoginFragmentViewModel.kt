@@ -33,6 +33,12 @@ class LoginFragmentViewModel(context: Context) : FragmentViewModel(context), Goo
                 .subscribe()
     }
 
+    fun logout() {
+        accountUseCase.logout()
+                .compose(bindToLifecycle<CompletableTransformer>())
+                .subscribe()
+    }
+
     fun signIn(fragment: BaseFragment<*>) {
         val gso: GoogleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()

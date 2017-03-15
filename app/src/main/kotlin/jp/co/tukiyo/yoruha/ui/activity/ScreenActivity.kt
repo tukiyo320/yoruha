@@ -1,5 +1,6 @@
 package jp.co.tukiyo.yoruha.ui.activity
 
+import android.app.FragmentManager
 import android.content.SharedPreferences
 import android.databinding.DataBindingUtil
 import android.os.Bundle
@@ -49,13 +50,26 @@ class ScreenActivity : BaseActivity<ActivityScreenBinding>() {
                 .commitNow()
     }
 
+    fun popAllScreen() {
+        supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bindViewModel(viewModel)
 
         navigationHeaderBinding.viewModel = viewModel
+        binding.navigationView.setNavigationItemSelectedListener { item ->
+            when(item.itemId) {
+                R.id.drawer_logout -> {
+                    popAllScreen()
+                    replaceScreen(LoginScreen(true))
+                }
+            }
+            return@setNavigationItemSelectedListener false
+        }
         checkUuid()
-        replaceScreen(LoginScreen())
+        replaceScreen(LoginScreen(false))
     }
 
     fun fetchUserInfo() {

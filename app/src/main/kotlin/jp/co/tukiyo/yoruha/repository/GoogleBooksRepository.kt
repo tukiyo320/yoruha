@@ -37,6 +37,10 @@ class GoogleBooksRepository(val context: Context) {
             }
         }
 
+    fun revertToken() {
+        token = ""
+    }
+
     private fun authorization(email: String): Completable {
         return Completable.create({ subscriber ->
             try {

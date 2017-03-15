@@ -25,6 +25,14 @@ class UserAccountUseCase(context: Context) {
         }
     }
 
+    fun logout(): Completable {
+        return Completable.create { subscriber ->
+            removeUserInfo()
+            repository.revertToken()
+            subscriber.onComplete()
+        }.sync()
+    }
+
     fun authorize(account: GoogleSignInAccount): Completable {
         return repository.authorize(account.email)
                 .doOnComplete {
