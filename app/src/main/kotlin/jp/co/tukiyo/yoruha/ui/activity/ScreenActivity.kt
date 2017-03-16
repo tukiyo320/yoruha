@@ -77,6 +77,10 @@ class ScreenActivity : BaseActivity<ActivityScreenBinding>() {
         viewModel.applyUserInfo()
     }
 
+    fun applyTotalReadPage() {
+        viewModel.applyTotalReadPage()
+    }
+
     fun setDrawerLockMode(mode: Int) {
         binding.screenDrawer.setDrawerLockMode(mode)
     }

@@ -21,6 +21,13 @@ interface GoogleBooksAPIClient {
     @GET("/books/v1/mylibrary/bookshelves/{shelfId}/volumes")
     fun myShelfVolumes(@Header("Authorization") token: String, @Path("shelfId") shelfId: Int): Single<BookShelfVolumesResponse>
 
+    @GET("/books/v1/mylibrary/bookshelves/{shelfId}/volumes")
+    fun myShelfVolumes(
+            @Header("Authorization") token: String,
+            @Path("shelfId") shelfId: Int,
+            @Query("startIndex") startIndex: Int
+    ): Single<BookShelfVolumesResponse>
+
     @GET("/books/v1/volumes/{volumeId}")
     fun volumeInfo(@Path("volumeId") volumeId: String): Single<VolumeItem>
 

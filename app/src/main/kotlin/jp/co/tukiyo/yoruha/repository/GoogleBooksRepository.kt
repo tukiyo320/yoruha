@@ -7,7 +7,9 @@ import android.widget.Toast
 import com.google.android.gms.auth.GoogleAuthUtil
 import com.google.android.gms.auth.UserRecoverableAuthException
 import io.reactivex.Completable
+import io.reactivex.Observable
 import io.reactivex.Single
+import io.reactivex.functions.BiConsumer
 import io.reactivex.schedulers.Schedulers
 import jp.co.tukiyo.yoruha.api.googlebooks.GoogleBooksAPIClient
 import jp.co.tukiyo.yoruha.api.googlebooks.GoogleBooksAPIClientBuilder
@@ -69,13 +71,41 @@ class GoogleBooksRepository(val context: Context) {
     }
 
     fun getMyShelfVolumes(shelfId: Int): Single<BookShelfVolumesResponse> {
-        return client.myShelfVolumes(authorizationHeader, shelfId)
+        return getMyShelfVolumes(shelfId, 0)
+                .async(Schedulers.newThread())
+    }
+
+    private fun getMyShelfVolumes(shelfId: Int, startIndex: Int): Single<BookShelfVolumesResponse> {
+        return client.myShelfVolumes(authorizationHeader, shelfId, startIndex)
                 .onErrorResumeNext {
                     if (it is HttpException && it.code() == 401) {
                         token = getRefreshedToken()
                     }
                     client.myShelfVolumes(authorizationHeader, shelfId)
                 }
+    }
+
+    fun getMyShelfVolumesAll(shelfId: Int): Observable<VolumeItem> {
+        return Observable.create<List<VolumeItem>> { subscriber ->
+            try {
+                var startIndex = 0
+                while (true) {
+                    val res = getMyShelfVolumes(shelfId, startIndex).blockingGet()
+
+                    if (res.items != null) {
+                        startIndex = res.items.size
+                        subscriber.onNext(res.items)
+                    } else {
+                        subscriber.onComplete()
+                        break
+                    }
+                }
+            } catch (e: Exception) {
+                subscriber.onError(e)
+            }
+        }
+                .flatMap { Observable.fromIterable(it) }
+                .map { getVolumeInfo(it.id).blockingGet() }
                 .async(Schedulers.newThread())
     }
 

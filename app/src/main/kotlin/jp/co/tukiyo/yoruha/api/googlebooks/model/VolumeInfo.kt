@@ -10,6 +10,7 @@ data class VolumeInfo(
         val description: String,
         val industryIdentifiers: List<IndustryIdentifier>,
         val readingModes: ReadingMode,
+        val pageCount: Int?,
         val printType: String,
         val categories: List<String>,
         val maturityRating: String,

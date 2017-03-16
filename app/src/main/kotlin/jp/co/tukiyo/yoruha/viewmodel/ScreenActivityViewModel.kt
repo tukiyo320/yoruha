@@ -3,18 +3,31 @@ package jp.co.tukiyo.yoruha.viewmodel
 import android.content.Context
 import jp.co.tukiyo.yoruha.element.UserInfo
 import jp.co.tukiyo.yoruha.extensions.onSuccess
+import jp.co.tukiyo.yoruha.usecase.BookShelfManageUseCase
 import jp.co.tukiyo.yoruha.usecase.UserAccountUseCase
 import jp.keita.kagurazaka.rxproperty.RxProperty
 
 class ScreenActivityViewModel(context: Context): ActivityViewModel(context) {
-    private val useCase = UserAccountUseCase(context)
+    private val accountUseCase = UserAccountUseCase(context)
+    private val shelfUseCase = BookShelfManageUseCase(context)
     val userInfo: RxProperty<UserInfo> = RxProperty()
+    val totalReadPage: RxProperty<Int> = RxProperty(0)
 
     fun applyUserInfo() {
-        useCase.getUserInfo()
+        accountUseCase.getUserInfo()
                 .onSuccess {
                     userInfo.set(it)
                 }
+                .subscribe()
+    }
+
+    fun applyTotalReadPage() {
+        shelfUseCase.getPageOfHaveReadBooks()
+                .compose(bindToLifecycle())
+                .onSuccess {
+                    totalReadPage.set(it + (totalReadPage.get() ?: 0))
+                }
+                .onError {  }
                 .subscribe()
     }
 

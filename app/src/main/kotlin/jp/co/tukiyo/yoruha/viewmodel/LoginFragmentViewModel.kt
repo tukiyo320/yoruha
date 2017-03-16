@@ -39,6 +39,7 @@ class LoginFragmentViewModel(context: Context) : FragmentViewModel(context), Goo
                 .onCompleted {
                     fragment.screenActivity.run {
                         applyUserInfo()
+                        applyTotalReadPage()
                         replaceScreen(getNextScreen())
                     }
                 }
@@ -91,6 +92,7 @@ class LoginFragmentViewModel(context: Context) : FragmentViewModel(context), Goo
                 .onCompleted {
                     fragment.screenActivity.run {
                         applyUserInfo()
+                        applyTotalReadPage()
                         replaceScreen(getNextScreen())
                     }
                 }
