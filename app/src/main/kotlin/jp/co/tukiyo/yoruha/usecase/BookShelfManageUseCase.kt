@@ -46,8 +46,9 @@ class BookShelfManageUseCase(context: Context) {
                 .map { it.items }
     }
 
-    fun getPageOfHaveReadBooks(): Observable<Int> {
+    fun getPageOfAllHaveReadBooks(): Single<Int> {
         return repository.getMyShelfVolumesAll(haveReadShelf.no)
                 .map { it.volumeInfo.pageCount ?: 0 }
+                .reduce(0) { t1: Int, t2: Int -> t1 + t2 }
     }
 }

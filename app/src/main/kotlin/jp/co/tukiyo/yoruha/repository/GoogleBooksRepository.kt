@@ -3,13 +3,11 @@ package jp.co.tukiyo.yoruha.repository
 import android.accounts.Account
 import android.content.Context
 import android.content.SharedPreferences
-import android.widget.Toast
 import com.google.android.gms.auth.GoogleAuthUtil
 import com.google.android.gms.auth.UserRecoverableAuthException
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
-import io.reactivex.functions.BiConsumer
 import io.reactivex.schedulers.Schedulers
 import jp.co.tukiyo.yoruha.api.googlebooks.GoogleBooksAPIClient
 import jp.co.tukiyo.yoruha.api.googlebooks.GoogleBooksAPIClientBuilder
@@ -21,7 +19,7 @@ import retrofit2.HttpException
 
 class GoogleBooksRepository(val context: Context) {
     private val prefs: SharedPreferences = context.getSharedPreference()
-    private val client: GoogleBooksAPIClient = GoogleBooksAPIClientBuilder().build()
+    private val client: GoogleBooksAPIClient = GoogleBooksAPIClientBuilder(context).build()
     private val ACCOUNT_TYPE = "com.google"
     private val SCOPE = "https://www.googleapis.com/auth/books"
     private val authorizationHeader: String
@@ -93,7 +91,7 @@ class GoogleBooksRepository(val context: Context) {
                     val res = getMyShelfVolumes(shelfId, startIndex).blockingGet()
 
                     if (res.items != null) {
-                        startIndex = res.items.size
+                        startIndex += res.items.size
                         subscriber.onNext(res.items)
                     } else {
                         subscriber.onComplete()

@@ -22,13 +22,12 @@ class ScreenActivityViewModel(context: Context): ActivityViewModel(context) {
     }
 
     fun applyTotalReadPage() {
-        shelfUseCase.getPageOfHaveReadBooks()
+        shelfUseCase.getPageOfAllHaveReadBooks()
                 .compose(bindToLifecycle())
                 .onSuccess {
-                    totalReadPage.set(it + (totalReadPage.get() ?: 0))
+                    totalReadPage.set(it)
                 }
                 .onError {  }
                 .subscribe()
     }
-
 }
