@@ -1,4 +1,4 @@
-package jp.co.tukiyo.yoruha.api
+package jp.co.tukiyo.yoruha.data.api
 
 import android.content.Context
 import com.squareup.moshi.Moshi

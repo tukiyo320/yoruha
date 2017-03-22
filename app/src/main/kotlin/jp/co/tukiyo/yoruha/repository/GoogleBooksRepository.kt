@@ -9,11 +9,11 @@ import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
-import jp.co.tukiyo.yoruha.api.googlebooks.GoogleBooksAPIClient
-import jp.co.tukiyo.yoruha.api.googlebooks.GoogleBooksAPIClientBuilder
-import jp.co.tukiyo.yoruha.api.googlebooks.model.BookShelfVolumesResponse
-import jp.co.tukiyo.yoruha.api.googlebooks.model.BooksResponse
-import jp.co.tukiyo.yoruha.api.googlebooks.model.VolumeItem
+import jp.co.tukiyo.yoruha.data.api.googlebooks.GoogleBooksAPIClient
+import jp.co.tukiyo.yoruha.data.api.googlebooks.GoogleBooksAPIClientBuilder
+import jp.co.tukiyo.yoruha.data.api.googlebooks.model.BookShelfVolumesResponse
+import jp.co.tukiyo.yoruha.data.api.googlebooks.model.BooksResponse
+import jp.co.tukiyo.yoruha.data.api.googlebooks.model.VolumeItem
 import jp.co.tukiyo.yoruha.extensions.*
 import retrofit2.HttpException
 

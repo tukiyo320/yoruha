@@ -3,7 +3,7 @@ package jp.co.tukiyo.yoruha.ui.adapter
 import android.databinding.DataBindingUtil
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import jp.co.tukiyo.yoruha.api.googlebooks.model.VolumeItem
+import jp.co.tukiyo.yoruha.data.api.googlebooks.model.VolumeItem
 import jp.co.tukiyo.yoruha.databinding.SearchResultItemBinding
 import jp.co.tukiyo.yoruha.ui.listener.OnListsBookItemListener
 

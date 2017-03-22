@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.github.chuross.recyclerviewadapters.ItemAdapter
 import jp.co.tukiyo.yoruha.R
-import jp.co.tukiyo.yoruha.api.googlebooks.model.VolumeItem
+import jp.co.tukiyo.yoruha.data.api.googlebooks.model.VolumeItem
 import jp.co.tukiyo.yoruha.databinding.BookListItemBinding
 import jp.co.tukiyo.yoruha.databinding.SearchResultItemBinding
 import jp.co.tukiyo.yoruha.ui.listener.OnListsBookItemListener

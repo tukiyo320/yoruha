@@ -1,4 +1,4 @@
-package jp.co.tukiyo.yoruha.api.googlebooks.model
+package jp.co.tukiyo.yoruha.data.api.googlebooks.model
 
 import java.io.Serializable
 

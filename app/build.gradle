@@ -69,6 +69,8 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.github.k-kagurazaka.rx-property-android:rx-property:3.1.0'
     compile 'com.github.k-kagurazaka.rx-property-android:rx-property-kotlin:3.1.0'
+    annotationProcessor 'com.github.gfx.android.orma:orma-processor:4.2.3'
+    compile 'com.github.gfx.android.orma:orma:4.2.3'
 }
 repositories {
     mavenCentral()

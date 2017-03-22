@@ -4,8 +4,8 @@ import android.content.Context
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
-import jp.co.tukiyo.yoruha.api.googlebooks.GoogleBooksAPIClient
-import jp.co.tukiyo.yoruha.api.googlebooks.model.VolumeItem
+import jp.co.tukiyo.yoruha.data.api.googlebooks.GoogleBooksAPIClient
+import jp.co.tukiyo.yoruha.data.api.googlebooks.model.VolumeItem
 import jp.co.tukiyo.yoruha.element.BookShelf
 import jp.co.tukiyo.yoruha.repository.GoogleBooksRepository
 

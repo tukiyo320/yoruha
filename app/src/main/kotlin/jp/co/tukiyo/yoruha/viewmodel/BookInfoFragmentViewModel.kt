@@ -4,7 +4,7 @@ import android.content.Context
 import android.databinding.ObservableField
 import android.text.Html
 import android.text.Spanned
-import jp.co.tukiyo.yoruha.api.googlebooks.model.VolumeItem
+import jp.co.tukiyo.yoruha.data.api.googlebooks.model.VolumeItem
 import jp.co.tukiyo.yoruha.extensions.onSuccess
 import jp.co.tukiyo.yoruha.usecase.BookShelfManageUseCase
 

@@ -1,7 +1,7 @@
-package jp.co.tukiyo.yoruha.api.googlebooks
+package jp.co.tukiyo.yoruha.data.api.googlebooks
 
 import android.content.Context
-import jp.co.tukiyo.yoruha.api.AbstractAPIClientBuilder
+import jp.co.tukiyo.yoruha.data.api.AbstractAPIClientBuilder
 
 class GoogleBooksAPIClientBuilder(context: Context) : AbstractAPIClientBuilder<GoogleBooksAPIClient>(
         context,

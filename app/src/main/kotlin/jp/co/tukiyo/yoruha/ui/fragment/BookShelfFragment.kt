@@ -9,7 +9,7 @@ import com.hannesdorfmann.fragmentargs.FragmentArgs
 import com.hannesdorfmann.fragmentargs.annotation.Arg
 import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs
 import jp.co.tukiyo.yoruha.R
-import jp.co.tukiyo.yoruha.api.googlebooks.model.VolumeItem
+import jp.co.tukiyo.yoruha.data.api.googlebooks.model.VolumeItem
 import jp.co.tukiyo.yoruha.databinding.FragmentBookShelfBinding
 import jp.co.tukiyo.yoruha.element.BookShelf
 import jp.co.tukiyo.yoruha.ui.adapter.BookListItemViewHolder

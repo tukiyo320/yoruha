@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.github.chuross.recyclerviewadapters.ItemAdapter
 import jp.co.tukiyo.yoruha.R
-import jp.co.tukiyo.yoruha.api.googlebooks.model.VolumeItem
+import jp.co.tukiyo.yoruha.data.api.googlebooks.model.VolumeItem
 
 class BookShelfItemListAdapter(
         context: Context,

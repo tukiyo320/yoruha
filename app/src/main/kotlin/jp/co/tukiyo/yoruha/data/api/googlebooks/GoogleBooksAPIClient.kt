@@ -1,10 +1,10 @@
-package jp.co.tukiyo.yoruha.api.googlebooks
+package jp.co.tukiyo.yoruha.data.api.googlebooks
 
 import io.reactivex.Completable
 import io.reactivex.Single
-import jp.co.tukiyo.yoruha.api.googlebooks.model.BookShelfVolumesResponse
-import jp.co.tukiyo.yoruha.api.googlebooks.model.BooksResponse
-import jp.co.tukiyo.yoruha.api.googlebooks.model.VolumeItem
+import jp.co.tukiyo.yoruha.data.api.googlebooks.model.BookShelfVolumesResponse
+import jp.co.tukiyo.yoruha.data.api.googlebooks.model.BooksResponse
+import jp.co.tukiyo.yoruha.data.api.googlebooks.model.VolumeItem
 import retrofit2.http.*
 
 interface GoogleBooksAPIClient {

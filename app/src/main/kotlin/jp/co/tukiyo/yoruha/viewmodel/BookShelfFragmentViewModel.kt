@@ -3,7 +3,7 @@ package jp.co.tukiyo.yoruha.viewmodel
 import android.content.Context
 import android.widget.Toast
 import io.reactivex.CompletableTransformer
-import jp.co.tukiyo.yoruha.api.googlebooks.model.VolumeItem
+import jp.co.tukiyo.yoruha.data.api.googlebooks.model.VolumeItem
 import jp.co.tukiyo.yoruha.extensions.onCompleted
 import jp.co.tukiyo.yoruha.extensions.onSuccess
 import jp.co.tukiyo.yoruha.ui.adapter.BookShelfItemListAdapter
