@@ -5,7 +5,7 @@
 
         <variable
             name="book"
-            type="jp.co.tukiyo.yoruha.api.googlebooks.model.VolumeItem"/>
+            type="jp.co.tukiyo.yoruha.data.api.googlebooks.model.VolumeItem"/>
     </data>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
