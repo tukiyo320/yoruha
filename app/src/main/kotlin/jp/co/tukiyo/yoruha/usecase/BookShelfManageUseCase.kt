@@ -4,13 +4,20 @@ import android.content.Context
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
 import jp.co.tukiyo.yoruha.data.api.googlebooks.GoogleBooksAPIClient
 import jp.co.tukiyo.yoruha.data.api.googlebooks.model.VolumeItem
+import jp.co.tukiyo.yoruha.data.db.Book
 import jp.co.tukiyo.yoruha.element.BookShelf
+import jp.co.tukiyo.yoruha.extensions.async
+import jp.co.tukiyo.yoruha.repository.BooksRepository
 import jp.co.tukiyo.yoruha.repository.GoogleBooksRepository
 
 class BookShelfManageUseCase(context: Context) {
-    private val repository = GoogleBooksRepository(context)
+    private val googleBooksRepository = GoogleBooksRepository(context)
+    private val sortedPreShelves by lazy {
+        preShelves.sortedBy { it.no }
+    }
 
     companion object {
         val haveReadShelf: BookShelf = BookShelf(4, "読んだ本", false)
@@ -25,30 +32,55 @@ class BookShelfManageUseCase(context: Context) {
     }
 
     fun getMyShelfBooks(shelfId: Int): Single<List<VolumeItem>> {
-        return repository.getMyShelfVolumes(shelfId)
+        return googleBooksRepository.getMyShelfVolumes(shelfId)
                 .map { it.items }
     }
 
     fun removeBook(shelfId: Int, volumeId: String): Completable {
-        return repository.removeVolume(shelfId, volumeId)
+        return googleBooksRepository.removeVolume(shelfId, volumeId)
     }
 
     fun addBook(shelfId: Int, volumeId: String): Completable {
-        return repository.addVolume(shelfId, volumeId)
+        return googleBooksRepository.addVolume(shelfId, volumeId)
     }
 
     fun getBookInfo(volumeId: String): Single<VolumeItem> {
-        return repository.getVolumeInfo(volumeId)
+        return googleBooksRepository.getVolumeInfo(volumeId)
     }
 
     fun search(q: String, orderBy: GoogleBooksAPIClient.OrderBy, startIndex: Int): Single<List<VolumeItem>> {
-        return repository.search(q, orderBy, startIndex)
+        return googleBooksRepository.search(q, orderBy, startIndex)
                 .map { it.items }
     }
 
     fun getPageOfAllHaveReadBooks(): Single<Int> {
-        return repository.getMyShelfVolumesAll(haveReadShelf.no)
+        return googleBooksRepository.getMyShelfVolumesInfoAll(haveReadShelf.no)
                 .map { it.volumeInfo.pageCount ?: 0 }
                 .reduce(0) { t1: Int, t2: Int -> t1 + t2 }
+    }
+
+    fun syncBooksForAllShelves(): Completable {
+        return Observable.fromIterable(preShelves)
+                .flatMap { syncBooks(it.no) }
+                .flatMapCompletable {
+                    Completable.complete()
+                }
+                .async(Schedulers.newThread())
+    }
+
+    private fun syncBooks(shelfId: Int): Observable<Book> {
+        return googleBooksRepository.getMyShelfVolumesAll(shelfId)
+                .map { Book(it.id, shelfId) }
+                .buffer(10)
+                .flatMap { BooksRepository.upsertBooks(it) }
+    }
+
+    fun getShelfIdBookIn(volumeId: String): Observable<BookShelf> {
+        return BooksRepository.findByVolumeId(volumeId)
+                .map {
+                    sortedPreShelves.binarySearchBy(it.shelfId, selector = { it.no }).let {
+                        sortedPreShelves[it]
+                    }
+                }
     }
 }

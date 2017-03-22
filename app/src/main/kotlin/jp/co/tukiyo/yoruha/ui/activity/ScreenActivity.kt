@@ -78,7 +78,7 @@ class ScreenActivity : BaseActivity<ActivityScreenBinding>() {
     }
 
     fun applyTotalReadPage() {
-        viewModel.applyTotalReadPage()
+//        viewModel.applyTotalReadPage()
     }
 
     fun setDrawerLockMode(mode: Int) {

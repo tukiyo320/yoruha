@@ -54,6 +54,16 @@
             android:layout_height="wrap_content"
             android:text="@{viewModel.description}"/>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="入っている本棚"/>
+
+        <ListView
+            android:id="@+id/book_info_shelf_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
         <Button
             android:id="@+id/book_info_add_to_bookshelf_button"
             android:layout_width="wrap_content"

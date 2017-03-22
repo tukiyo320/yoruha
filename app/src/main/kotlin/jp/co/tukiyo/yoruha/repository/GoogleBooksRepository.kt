@@ -83,6 +83,11 @@ class GoogleBooksRepository(val context: Context) {
                 }
     }
 
+    fun getMyShelfVolumesInfoAll(shelfId: Int): Observable<VolumeItem> {
+        return getMyShelfVolumesAll(shelfId)
+                .map { getVolumeInfo(it.id).blockingGet() }
+    }
+
     fun getMyShelfVolumesAll(shelfId: Int): Observable<VolumeItem> {
         return Observable.create<List<VolumeItem>> { subscriber ->
             try {
@@ -103,7 +108,6 @@ class GoogleBooksRepository(val context: Context) {
             }
         }
                 .flatMap { Observable.fromIterable(it) }
-                .map { getVolumeInfo(it.id).blockingGet() }
                 .async(Schedulers.newThread())
     }
 

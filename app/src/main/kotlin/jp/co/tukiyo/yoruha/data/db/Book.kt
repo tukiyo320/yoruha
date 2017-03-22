@@ -1,13 +1,34 @@
 package jp.co.tukiyo.yoruha.data.db
 
-import com.github.gfx.android.orma.annotation.Column
-import com.github.gfx.android.orma.annotation.PrimaryKey
-import com.github.gfx.android.orma.annotation.Setter
-import com.github.gfx.android.orma.annotation.Table
+import com.github.gfx.android.orma.annotation.*
 
-@Table
-data class Book(
-        @Setter("id") @PrimaryKey var id: Long,
-        @Setter("volumeId") @Column var volumeId: String,
-        @Setter("shelfId") @Column var shelfId: Int
+@Table(
+        indexes = arrayOf(Index(
+                unique = true,
+                value = *arrayOf("volumeId", "shelfId")
+        ))
 )
+class Book {
+    @PrimaryKey(autoincrement = true)
+    var id: Long = 0
+
+    @Column(indexed = true)
+    val volumeId: String
+
+    @Column(indexed = true)
+    val shelfId: Int
+
+    constructor(
+            @Setter("id") id: Long,
+            @Setter("volumeId") volumeId: String,
+            @Setter("shelfId") shelfId: Int) {
+        this.id = id
+        this.volumeId = volumeId
+        this.shelfId = shelfId
+    }
+
+    constructor(volumeId: String, shelfId: Int) {
+        this.volumeId = volumeId
+        this.shelfId = shelfId
+    }
+}

@@ -18,12 +18,11 @@ fun <T> Single<T>.onError(block: (Throwable) -> Unit): SingleSubscription<T> {
 }
 
 fun <T> Single<T>.onSuccess(block: (T) -> Unit): SingleSubscription<T> {
-    return SingleSubscription(this).onNext(block)
+    return SingleSubscription(this).onSuccess(block)
 }
 
 open class SingleSubscription<T>(val single: Single<T>) {
     private var error: (Throwable) -> Unit = { throw it }
-    private var completed: () -> Unit = {}
     private var success: (T) -> Unit = {}
 
     fun onError(block: (Throwable) -> Unit): SingleSubscription<T> {
@@ -31,12 +30,7 @@ open class SingleSubscription<T>(val single: Single<T>) {
         return this
     }
 
-    fun onCompleted(block: () -> Unit): SingleSubscription<T> {
-        completed = block
-        return this
-    }
-
-    fun onNext(block: (T) -> Unit): SingleSubscription<T> {
+    fun onSuccess(block: (T) -> Unit): SingleSubscription<T> {
         success = block
         return this
     }

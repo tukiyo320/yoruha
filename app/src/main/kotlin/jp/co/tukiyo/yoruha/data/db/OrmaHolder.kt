@@ -6,6 +6,8 @@ object OrmaHolder {
     lateinit var ORMA: OrmaDatabase
 
     fun init(context: Context) {
-        ORMA = OrmaDatabase.builder(context).build()
+        ORMA = OrmaDatabase.builder(context)
+                .name("jp.co.tukiyo.yoruha")
+                .build()
     }
 }

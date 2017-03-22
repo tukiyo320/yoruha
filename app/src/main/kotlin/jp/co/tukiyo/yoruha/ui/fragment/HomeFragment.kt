@@ -10,15 +10,21 @@ import jp.co.tukiyo.yoruha.R
 import jp.co.tukiyo.yoruha.databinding.FragmentHomeBinding
 import jp.co.tukiyo.yoruha.ui.adapter.BookShelfPagerAdapter
 import jp.co.tukiyo.yoruha.ui.screen.SearchResultListScreen
+import jp.co.tukiyo.yoruha.viewmodel.HomeViewModel
 
 @FragmentWithArgs
 class HomeFragment : BaseFragment<FragmentHomeBinding>(), SearchView.OnQueryTextListener {
     override val layoutResourceId: Int = R.layout.fragment_home
     lateinit var adapter: BookShelfPagerAdapter
+    val viewModel:HomeViewModel by lazy {
+        HomeViewModel(context)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         adapter = BookShelfPagerAdapter(childFragmentManager)
+        bindViewModel(viewModel)
+        viewModel.syncBooks()
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {

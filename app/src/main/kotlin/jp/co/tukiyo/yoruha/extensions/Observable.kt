@@ -2,6 +2,7 @@ package jp.co.tukiyo.yoruha.extensions
 
 import io.reactivex.Observable
 import io.reactivex.Scheduler
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 
@@ -22,6 +23,11 @@ fun <T> Observable<T>.onCompleted(block: () -> Unit) : ObservableSubscription<T>
 
 fun <T> Observable<T>.onSuccess(block: (T) -> Unit) : ObservableSubscription<T> {
     return ObservableSubscription(this).onNext(block)
+}
+
+fun <T> Observable<T>.collect(): Single<List<T>> {
+    return collectInto(mutableListOf<T>(), {list, item -> list.add(item)})
+            .map { it.toList() }
 }
 
 open class ObservableSubscription<T>(val observable: Observable<T>) {

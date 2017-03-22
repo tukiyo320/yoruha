@@ -31,6 +31,8 @@ class BookInfoFragment: BaseFragment<FragmentBookInfoBinding>() {
         binding?.run {
             viewModel = infoViewModel
 
+            bookInfoShelfList.adapter = viewModel.adapter
+
             bookInfoAddToBookshelfButton.setOnClickListener {
                 AddBookToBookshelfDialogFragmentBuilder(volumeId).build()
                         .show(fragmentManager, "add_book")
@@ -38,5 +40,6 @@ class BookInfoFragment: BaseFragment<FragmentBookInfoBinding>() {
         }
 
         infoViewModel.fetchInfo()
+        infoViewModel.fetchInWhichShelf()
     }
 }
