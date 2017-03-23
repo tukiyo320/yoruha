@@ -9,9 +9,14 @@ import jp.co.tukiyo.yoruha.extensions.async
 object BooksRepository {
     val orma = OrmaHolder.ORMA
 
-    fun upsertBooks(books: List<Book>): Observable<Book> {
-        return orma.relationOfBook()
-                .upsertAsObservable(books)
+    fun upsertBooks(book: Book): Observable<Long> {
+        return Observable.just(book)
+                .filter {
+                    orma.selectFromBook()
+                            .volumeIdAndShelfIdEq(it.volumeId, it.shelfId)
+                            .getOrNull(0) == null
+                }
+                .map { orma.insertIntoBook(it) }
                 .async(Schedulers.newThread())
     }
 

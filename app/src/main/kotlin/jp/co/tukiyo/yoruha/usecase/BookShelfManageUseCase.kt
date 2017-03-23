@@ -68,10 +68,9 @@ class BookShelfManageUseCase(context: Context) {
                 .async(Schedulers.newThread())
     }
 
-    private fun syncBooks(shelfId: Int): Observable<Book> {
+    private fun syncBooks(shelfId: Int): Observable<Long> {
         return googleBooksRepository.getMyShelfVolumesAll(shelfId)
                 .map { Book(it.id, shelfId) }
-                .buffer(10)
                 .flatMap { BooksRepository.upsertBooks(it) }
     }
 
