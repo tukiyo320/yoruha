@@ -9,7 +9,7 @@ import com.trello.rxlifecycle2.android.RxLifecycleAndroid
 import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
 
-open class ActivityViewModel(override val context: Context): BaseViewModel(), LifecycleProvider<ActivityEvent> {
+open class ActivityViewModel(override val context: Context) : BaseViewModel(), LifecycleProvider<ActivityEvent> {
     val lifeCycleEvent: BehaviorSubject<ActivityEvent> = BehaviorSubject.create()
 
     override fun lifecycle(): Observable<ActivityEvent> = lifeCycleEvent.hide()

@@ -10,7 +10,7 @@ import jp.co.tukiyo.yoruha.data.api.googlebooks.model.VolumeItem
 class BookShelfItemListAdapter(
         context: Context,
         val listener: BookListItemViewHolder.OnBookShelfItemListener
-): ItemAdapter<VolumeItem, BookListItemViewHolder>(context) {
+) : ItemAdapter<VolumeItem, BookListItemViewHolder>(context) {
     override fun getAdapterId(): Int = R.layout.book_list_item
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): BookListItemViewHolder {

@@ -4,17 +4,13 @@ import android.app.FragmentManager
 import android.content.SharedPreferences
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v4.widget.DrawerLayout
 import jp.co.tukiyo.yoruha.R
 import jp.co.tukiyo.yoruha.databinding.ActivityScreenBinding
 import jp.co.tukiyo.yoruha.databinding.NavigationHeaderBinding
 import jp.co.tukiyo.yoruha.extensions.getSharedPreference
 import jp.co.tukiyo.yoruha.extensions.getUuid
-import jp.co.tukiyo.yoruha.extensions.isAcceptedToPolicy
 import jp.co.tukiyo.yoruha.extensions.putUuid
-import jp.co.tukiyo.yoruha.ui.screen.HomeScreen
 import jp.co.tukiyo.yoruha.ui.screen.LoginScreen
-import jp.co.tukiyo.yoruha.ui.screen.PolicyScreen
 import jp.co.tukiyo.yoruha.ui.screen.Screen
 import jp.co.tukiyo.yoruha.viewmodel.ScreenActivityViewModel
 import java.util.*

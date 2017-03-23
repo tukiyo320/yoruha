@@ -16,7 +16,7 @@ import jp.co.tukiyo.yoruha.viewmodel.HomeViewModel
 class HomeFragment : BaseFragment<FragmentHomeBinding>(), SearchView.OnQueryTextListener {
     override val layoutResourceId: Int = R.layout.fragment_home
     lateinit var adapter: BookShelfPagerAdapter
-    val viewModel:HomeViewModel by lazy {
+    val viewModel: HomeViewModel by lazy {
         HomeViewModel(context)
     }
 

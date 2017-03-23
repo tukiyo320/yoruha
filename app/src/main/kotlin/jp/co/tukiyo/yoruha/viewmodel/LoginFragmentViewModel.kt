@@ -3,8 +3,6 @@ package jp.co.tukiyo.yoruha.viewmodel
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.webkit.CookieManager
-import android.webkit.CookieSyncManager
 import com.google.android.gms.auth.UserRecoverableAuthException
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions

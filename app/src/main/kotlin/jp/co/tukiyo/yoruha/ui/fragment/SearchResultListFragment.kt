@@ -1,16 +1,17 @@
 package jp.co.tukiyo.yoruha.ui.fragment
 
 import android.os.Bundle
-import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.*
-import android.view.*
+import android.view.LayoutInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import com.hannesdorfmann.fragmentargs.annotation.Arg
 import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs
 import jp.co.tukiyo.yoruha.R
 import jp.co.tukiyo.yoruha.data.api.googlebooks.GoogleBooksAPIClient
 import jp.co.tukiyo.yoruha.data.api.googlebooks.model.VolumeItem
 import jp.co.tukiyo.yoruha.databinding.FragmentSearchResultListBinding
-import jp.co.tukiyo.yoruha.ui.adapter.BookListItemViewHolder
 import jp.co.tukiyo.yoruha.ui.adapter.BookSearchResultListAdapter
 import jp.co.tukiyo.yoruha.ui.listener.OnListsBookItemListener
 import jp.co.tukiyo.yoruha.viewmodel.SearchResultListFragmentViewModel

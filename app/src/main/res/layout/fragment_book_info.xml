@@ -4,10 +4,10 @@
 
     <data>
 
-        <import type="android.text.Html"/>
+        <import type="android.text.Html" />
         <variable
             name="viewModel"
-            type="jp.co.tukiyo.yoruha.viewmodel.BookInfoFragmentViewModel"/>
+            type="jp.co.tukiyo.yoruha.viewmodel.BookInfoFragmentViewModel" />
     </data>
 
 
@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/Toolbar"
-            android:title="@{viewModel.book.volumeInfo.title}"/>
+            android:title="@{viewModel.book.volumeInfo.title}" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -31,7 +31,7 @@
                 android:id="@+id/book_info_thumbnail"
                 android:layout_width="200dp"
                 android:layout_height="200dp"
-                app:imageUrl="@{viewModel.book.volumeInfo.imageLinks.thumbnail}"/>
+                app:imageUrl="@{viewModel.book.volumeInfo.imageLinks.thumbnail}" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -43,7 +43,7 @@
                     android:id="@+id/book_info_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{viewModel.book.volumeInfo.title}"/>
+                    android:text="@{viewModel.book.volumeInfo.title}" />
 
             </RelativeLayout>
         </RelativeLayout>
@@ -52,18 +52,18 @@
             android:id="@+id/book_info_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.description}"/>
+            android:text="@{viewModel.description}" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="入っている本棚"/>
+            android:text="入っている本棚" />
 
         <ListView
             android:id="@+id/book_info_shelf_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
         <Button
             android:id="@+id/book_info_add_to_bookshelf_button"
@@ -71,7 +71,7 @@
             android:layout_height="50dp"
             android:text="@string/add_bookshelf"
             android:layout_margin="10dp"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center" />
 
     </LinearLayout>
 </layout>

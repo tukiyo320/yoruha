@@ -5,7 +5,7 @@
 
         <variable
             name="book"
-            type="jp.co.tukiyo.yoruha.data.api.googlebooks.model.VolumeItem"/>
+            type="jp.co.tukiyo.yoruha.data.api.googlebooks.model.VolumeItem" />
     </data>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -18,7 +18,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_margin="3dp"
-            app:imageUrl="@{book.volumeInfo.imageLinks.smallThumbnail}"/>
+            app:imageUrl="@{book.volumeInfo.imageLinks.smallThumbnail}" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -30,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:text="@{book.volumeInfo.title}"/>
+                android:text="@{book.volumeInfo.title}" />
 
         </RelativeLayout>
 

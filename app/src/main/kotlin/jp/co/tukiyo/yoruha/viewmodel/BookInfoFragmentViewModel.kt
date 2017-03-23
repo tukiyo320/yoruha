@@ -6,9 +6,7 @@ import android.text.Html
 import android.text.Spanned
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import jp.co.tukiyo.yoruha.R
 import jp.co.tukiyo.yoruha.data.api.googlebooks.model.VolumeItem
-import jp.co.tukiyo.yoruha.extensions.collect
 import jp.co.tukiyo.yoruha.extensions.onSuccess
 import jp.co.tukiyo.yoruha.usecase.BookShelfManageUseCase
 
@@ -32,7 +30,7 @@ class BookInfoFragmentViewModel(context: Context, val volumeId: String) : Fragme
     fun fetchInWhichShelf() {
         useCase.getShelfIdBookIn(volumeId)
                 .compose(bindToLifecycle())
-                .collectInto(mutableListOf<String>(), { list, (_, title) -> list.add(title)})
+                .collectInto(mutableListOf<String>(), { list, (_, title) -> list.add(title) })
                 .onSuccess {
                     adapter.addAll(it)
                 }

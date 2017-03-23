@@ -3,11 +3,9 @@ package jp.co.tukiyo.yoruha.ui.adapter
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
-import com.astuetz.PagerSlidingTabStrip
 import jp.co.tukiyo.yoruha.element.BookShelf
 import jp.co.tukiyo.yoruha.ui.fragment.BookShelfFragmentBuilder
 import jp.co.tukiyo.yoruha.usecase.BookShelfManageUseCase
-import java.io.Serializable
 
 class BookShelfPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
 

@@ -22,7 +22,7 @@ class BookListItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
                 PopupMenu(itemView.context, it).run {
                     menuInflater.inflate(R.menu.menu_shelves_book, menu)
                     setOnMenuItemClickListener { menuItem ->
-                        when(menuItem.itemId) {
+                        when (menuItem.itemId) {
                             R.id.menu_shelves_book_remove -> {
                                 listener.onItemRemove(item)
                             }
@@ -35,7 +35,7 @@ class BookListItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
         }
     }
 
-    interface OnBookShelfItemListener: OnListsBookItemListener {
+    interface OnBookShelfItemListener : OnListsBookItemListener {
         fun onItemRemove(item: VolumeItem)
     }
 }

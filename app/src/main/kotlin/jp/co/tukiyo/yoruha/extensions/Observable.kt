@@ -13,48 +13,49 @@ fun <T> Observable<T>.async(scheduler: Scheduler): Observable<T> {
 fun <T> Observable<T>.sync(): Observable<T> {
     return subscribeOn(AndroidSchedulers.mainThread()).observeOn(AndroidSchedulers.mainThread())
 }
-fun <T> Observable<T>.onError(block : (Throwable) -> Unit) : ObservableSubscription<T> {
+
+fun <T> Observable<T>.onError(block: (Throwable) -> Unit): ObservableSubscription<T> {
     return ObservableSubscription(this).onError(block)
 }
 
-fun <T> Observable<T>.onCompleted(block: () -> Unit) : ObservableSubscription<T> {
+fun <T> Observable<T>.onCompleted(block: () -> Unit): ObservableSubscription<T> {
     return ObservableSubscription(this).onCompleted(block)
 }
 
-fun <T> Observable<T>.onSuccess(block: (T) -> Unit) : ObservableSubscription<T> {
+fun <T> Observable<T>.onSuccess(block: (T) -> Unit): ObservableSubscription<T> {
     return ObservableSubscription(this).onNext(block)
 }
 
 fun <T> Observable<T>.collect(): Single<List<T>> {
-    return collectInto(mutableListOf<T>(), {list, item -> list.add(item)})
+    return collectInto(mutableListOf<T>(), { list, item -> list.add(item) })
             .map { it.toList() }
 }
 
 open class ObservableSubscription<T>(val observable: Observable<T>) {
-    private var error: (Throwable) -> Unit = {throw it}
+    private var error: (Throwable) -> Unit = { throw it }
     private var completed: () -> Unit = {}
     private var next: (T) -> Unit = {}
 
-    fun onError(block: (Throwable) -> Unit) : ObservableSubscription<T> {
+    fun onError(block: (Throwable) -> Unit): ObservableSubscription<T> {
         error = block
         return this
     }
 
-    fun onCompleted(block: () -> Unit) : ObservableSubscription<T> {
+    fun onCompleted(block: () -> Unit): ObservableSubscription<T> {
         completed = block
         return this
     }
 
-    fun onNext(block: (T) -> Unit) : ObservableSubscription<T> {
+    fun onNext(block: (T) -> Unit): ObservableSubscription<T> {
         next = block
         return this
     }
 
     fun subscribe(): Disposable = observable.subscribe({
         next.invoke(it)
-    },{
-        it?.let {error.invoke(it)}
-    },{
+    }, {
+        it?.let { error.invoke(it) }
+    }, {
         completed.invoke()
     })
 }

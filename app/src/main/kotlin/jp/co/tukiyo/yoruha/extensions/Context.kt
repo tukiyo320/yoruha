@@ -7,7 +7,7 @@ import com.facebook.android.crypto.keychain.SharedPrefsBackedKeyChain
 import com.facebook.crypto.Crypto
 import com.facebook.crypto.CryptoConfig
 
-val Context.crypto : Crypto
+val Context.crypto: Crypto
     get() {
         val keyChain = SharedPrefsBackedKeyChain(this, CryptoConfig.KEY_256)
         val crypto = AndroidConceal.get().createDefaultCrypto(keyChain)
@@ -17,6 +17,6 @@ val Context.crypto : Crypto
         return crypto
     }
 
-fun Context.getSharedPreference() : SharedPreferences {
+fun Context.getSharedPreference(): SharedPreferences {
     return this.getSharedPreferences("jp.co.tukiyo.yoruha", Context.MODE_PRIVATE)
 }

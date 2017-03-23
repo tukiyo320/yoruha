@@ -7,7 +7,7 @@ import jp.co.tukiyo.yoruha.usecase.BookShelfManageUseCase
 import jp.co.tukiyo.yoruha.usecase.UserAccountUseCase
 import jp.keita.kagurazaka.rxproperty.RxProperty
 
-class ScreenActivityViewModel(context: Context): ActivityViewModel(context) {
+class ScreenActivityViewModel(context: Context) : ActivityViewModel(context) {
     private val accountUseCase = UserAccountUseCase(context)
     private val shelfUseCase = BookShelfManageUseCase(context)
     val userInfo: RxProperty<UserInfo> = RxProperty()
@@ -27,7 +27,7 @@ class ScreenActivityViewModel(context: Context): ActivityViewModel(context) {
                 .onSuccess {
                     totalReadPage.set(it)
                 }
-                .onError {  }
+                .onError { }
                 .subscribe()
     }
 }

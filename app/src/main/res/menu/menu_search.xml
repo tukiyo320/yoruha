@@ -6,7 +6,7 @@
         app:actionViewClass="android.support.v7.widget.SearchView"
         android:icon="@android:drawable/ic_menu_search"
         android:title="@string/app_name"
-        app:showAsAction="always"/>
+        app:showAsAction="always" />
     <group
         android:id="@+id/menu_search_sort"
         android:checkableBehavior="single">
@@ -14,10 +14,10 @@
             android:id="@+id/menu_search_sort_relevance"
             app:showAsAction="never"
             android:checked="true"
-            android:title="関連度順検索"/>
+            android:title="関連度順検索" />
         <item
             android:id="@+id/menu_search_sort_newest"
             app:showAsAction="never"
-            android:title="刊行順検索"/>
+            android:title="刊行順検索" />
     </group>
 </menu>

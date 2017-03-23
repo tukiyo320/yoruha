@@ -10,9 +10,9 @@ import jp.co.tukiyo.yoruha.databinding.FragmentBookInfoBinding
 import jp.co.tukiyo.yoruha.viewmodel.BookInfoFragmentViewModel
 
 @FragmentWithArgs
-class BookInfoFragment: BaseFragment<FragmentBookInfoBinding>() {
+class BookInfoFragment : BaseFragment<FragmentBookInfoBinding>() {
     override val layoutResourceId: Int = R.layout.fragment_book_info
-    val infoViewModel : BookInfoFragmentViewModel by lazy {
+    val infoViewModel: BookInfoFragmentViewModel by lazy {
         BookInfoFragmentViewModel(context, volumeId)
     }
 

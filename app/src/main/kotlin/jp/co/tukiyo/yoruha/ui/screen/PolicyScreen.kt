@@ -5,5 +5,5 @@ import jp.co.tukiyo.yoruha.ui.fragment.PolicyFragmentBuilder
 
 class PolicyScreen : Screen {
     override val identify: String = PolicyScreen::class.java.name
-    override val fragmentFactory: () -> Fragment = { -> PolicyFragmentBuilder().build()}
+    override val fragmentFactory: () -> Fragment = { -> PolicyFragmentBuilder().build() }
 }

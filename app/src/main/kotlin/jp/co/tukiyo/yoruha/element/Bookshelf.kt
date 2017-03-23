@@ -6,4 +6,4 @@ data class BookShelf(
         val no: Int,
         val title: String,
         val removable: Boolean
-): Serializable
+) : Serializable

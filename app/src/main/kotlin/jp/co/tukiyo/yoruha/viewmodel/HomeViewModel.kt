@@ -6,7 +6,7 @@ import io.reactivex.CompletableTransformer
 import jp.co.tukiyo.yoruha.extensions.onCompleted
 import jp.co.tukiyo.yoruha.usecase.BookShelfManageUseCase
 
-class HomeViewModel(context: Context): FragmentViewModel(context) {
+class HomeViewModel(context: Context) : FragmentViewModel(context) {
     private val useCase = BookShelfManageUseCase(context)
 
     fun syncBooks() {

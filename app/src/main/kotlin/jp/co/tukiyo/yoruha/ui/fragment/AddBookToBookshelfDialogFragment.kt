@@ -12,7 +12,7 @@ import jp.co.tukiyo.yoruha.usecase.BookShelfManageUseCase
 import jp.co.tukiyo.yoruha.viewmodel.AddBookToBookShelfDialogFragmentViewModel
 
 @FragmentWithArgs
-class AddBookToBookshelfDialogFragment: DialogFragment() {
+class AddBookToBookshelfDialogFragment : DialogFragment() {
 
     val bookshelves: List<BookShelf> = BookShelfManageUseCase.preShelves
 

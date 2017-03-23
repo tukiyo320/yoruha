@@ -11,7 +11,7 @@
             style="@style/Toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:navigationIcon="@mipmap/ic_launcher"/>
+            app:navigationIcon="@mipmap/ic_launcher" />
 
         <com.astuetz.PagerSlidingTabStrip
             android:id="@+id/book_shelf_pager"
@@ -19,12 +19,12 @@
             android:layout_height="30dp"
             tools:pstsShouldExpand="true"
             android:layout_below="@id/toolbar"
-            android:background="#8BC34A"/>
+            android:background="#8BC34A" />
 
         <android.support.v4.view.ViewPager
             android:id="@+id/book_shelf"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/book_shelf_pager"/>
+            android:layout_below="@+id/book_shelf_pager" />
     </RelativeLayout>
 </layout>

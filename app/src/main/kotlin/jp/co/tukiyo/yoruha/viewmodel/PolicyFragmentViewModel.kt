@@ -6,7 +6,7 @@ import jp.co.tukiyo.yoruha.extensions.getSharedPreference
 import jp.co.tukiyo.yoruha.extensions.putAcceptedToPolicy
 
 class PolicyFragmentViewModel(context: Context) : FragmentViewModel(context) {
-    val prefs : SharedPreferences
+    val prefs: SharedPreferences
         get() = context.getSharedPreference()
 
     fun acceptPolicy() {
