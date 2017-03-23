@@ -38,10 +38,12 @@ class BookShelfManageUseCase(context: Context) {
 
     fun removeBook(shelfId: Int, volumeId: String): Completable {
         return googleBooksRepository.removeVolume(shelfId, volumeId)
+                .andThen(BooksRepository.deleteBook(Book(volumeId, shelfId)))
     }
 
     fun addBook(shelfId: Int, volumeId: String): Completable {
         return googleBooksRepository.addVolume(shelfId, volumeId)
+                .andThen(BooksRepository.insertBook(Book(volumeId, shelfId)))
     }
 
     fun getBookInfo(volumeId: String): Single<VolumeItem> {
