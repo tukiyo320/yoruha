@@ -5,6 +5,7 @@ import android.support.v4.app.DialogFragment
 import android.widget.Toast
 import io.reactivex.CompletableTransformer
 import jp.co.tukiyo.yoruha.extensions.onCompleted
+import jp.co.tukiyo.yoruha.ui.listener.OnAddBookToShelfListener
 import jp.co.tukiyo.yoruha.usecase.BookShelfManageUseCase
 
 class AddBookToBookShelfDialogFragmentViewModel(context: Context) : FragmentViewModel(context) {
@@ -17,6 +18,7 @@ class AddBookToBookShelfDialogFragmentViewModel(context: Context) : FragmentView
                     fragment.dismiss()
                 }
                 .onCompleted {
+                    (fragment.targetFragment as? OnAddBookToShelfListener)?.onAdd(shelfId)
                     Toast.makeText(context, "本が追加されました", Toast.LENGTH_SHORT).show()
                 }
                 .onError {

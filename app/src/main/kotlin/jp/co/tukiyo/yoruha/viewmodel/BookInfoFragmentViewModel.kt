@@ -32,6 +32,7 @@ class BookInfoFragmentViewModel(context: Context, val volumeId: String) : Fragme
                 .compose(bindToLifecycle())
                 .collectInto(mutableListOf<String>(), { list, (_, title) -> list.add(title) })
                 .onSuccess {
+                    adapter.clear()
                     adapter.addAll(it)
                 }
                 .onError {

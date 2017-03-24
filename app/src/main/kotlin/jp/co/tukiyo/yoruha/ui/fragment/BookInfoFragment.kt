@@ -7,15 +7,17 @@ import com.hannesdorfmann.fragmentargs.annotation.Arg
 import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs
 import jp.co.tukiyo.yoruha.R
 import jp.co.tukiyo.yoruha.databinding.FragmentBookInfoBinding
+import jp.co.tukiyo.yoruha.ui.listener.OnAddBookToShelfListener
 import jp.co.tukiyo.yoruha.viewmodel.BookInfoFragmentViewModel
 
 @FragmentWithArgs
-class BookInfoFragment : BaseFragment<FragmentBookInfoBinding>() {
+class BookInfoFragment : BaseFragment<FragmentBookInfoBinding>(), OnAddBookToShelfListener {
     override val layoutResourceId: Int = R.layout.fragment_book_info
+    private val RC_ADD_TO_SHELF = 10030
+
     val infoViewModel: BookInfoFragmentViewModel by lazy {
         BookInfoFragmentViewModel(context, volumeId)
     }
-
     @Arg
     var volumeId: String = ""
 
@@ -34,12 +36,18 @@ class BookInfoFragment : BaseFragment<FragmentBookInfoBinding>() {
             bookInfoShelfList.adapter = viewModel.adapter
 
             bookInfoAddToBookshelfButton.setOnClickListener {
-                AddBookToBookshelfDialogFragmentBuilder(volumeId).build()
+                AddBookToBookshelfDialogFragmentBuilder(volumeId).build().apply {
+                    setTargetFragment(this@BookInfoFragment, RC_ADD_TO_SHELF)
+                }
                         .show(fragmentManager, "add_book")
             }
         }
 
         infoViewModel.fetchInfo()
+        infoViewModel.fetchInWhichShelf()
+    }
+
+    override fun onAdd(shelfId: Int) {
         infoViewModel.fetchInWhichShelf()
     }
 }
